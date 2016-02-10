@@ -63,6 +63,6 @@ please debug and advice
 This source is The MIT License.
 
 using [okhttp](https://github.com/square/okhttp) [Apache License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0)  
-using [The Kotlin Standard Library](https://github.com/JetBrains/kotlin/tree/master/libraries/stdlib) [Apache License, Version 2.0]((http://www.apache.org/licenses/LICENSE-2.0))
+using [The Kotlin Standard Library](https://github.com/JetBrains/kotlin/tree/master/libraries/stdlib) [Apache License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0)
 
 
