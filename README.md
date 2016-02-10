@@ -24,7 +24,7 @@ please debug and advice
 #### gradle
 	repositories {
 	    mavenCentral()
-	    maven { url "https://raw.github.com/MeilCli/Twitter4Holo/master/library/repository" }
+	    maven { url "https://raw.github.com/MeilCli/Twitter4HK/master/library/repository" }
 	}
 	
 	dependencies {
