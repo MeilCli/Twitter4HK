@@ -12,13 +12,13 @@ class UserBest<TAclogStatus>(
         protected val json: IAclogStatusConverter<TAclogStatus>) :
         AbsAclogGet<ArrayList<TAclogStatus>>(oauth) {
 
-    public var authorization: Boolean = false
+    var authorization: Boolean = false
     override val isAuthorization = authorization
-    public var userId: Long? by longParam("user_id")
-    public var screenName: String? by stringParam("screen_name")
-    public var count: Int? by intParam("count")
-    public var page: Int? by intParam("page")
-    public var recent: String? by stringParam("recent")
+    var userId: Long? by longParam("user_id")
+    var screenName: String? by stringParam("screen_name")
+    var count: Int? by intParam("count")
+    var page: Int? by intParam("page")
+    var recent: String? by stringParam("recent")
     override val url = "$host/api/tweets/user_best.json"
     override val allowOauthType = OauthType.oauthEcho
 

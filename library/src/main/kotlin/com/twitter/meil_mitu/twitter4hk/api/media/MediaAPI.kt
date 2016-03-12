@@ -10,11 +10,9 @@ class MediaAPI<TMedia>(
         oauth: AbsOauth,
         protected val json: IMediaConverter<TMedia>) : AbsAPI(oauth) {
 
-    fun upload(media: File): Upload<TMedia> {
-        return Upload(oauth, json, media)
-    }
+    fun upload(media: File) = Upload(oauth, json, media)
 
-    fun chunkedUpload(media:File,mediaType:String):ChunkedUpload<TMedia>{
-        return ChunkedUpload(oauth,json,media,mediaType)
-    }
+
+    fun chunkedUpload(media: File, mediaType: String) = ChunkedUpload(oauth, json, media, mediaType)
+
 }

@@ -11,8 +11,8 @@ class UpdateDeliveryDevice(
         protected val json: IJsonConverter,
         device: String) : AbsPost<Unit>(oauth) {
 
-    public var device: String? by stringParam("device")
-    public var includeEntities: Boolean? by booleanParam("include_entities")
+    var device: String? by stringParam("device")
+    var includeEntities: Boolean? by booleanParam("include_entities")
     override val url = "https://api.twitter.com/1.1/account/update_delivery_device.json"
     override val allowOauthType = OauthType.oauth1
     override val isAuthorization = true

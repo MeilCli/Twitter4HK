@@ -21,16 +21,16 @@ class FilterStream<TStatus>(
         AbsPost<Stream>(oauth), IStreamParam {
 
     override var streamListener: IStreamListener? = null
-    public var filterStreamListener: IFilterStreamListener<TStatus>? = null
+    var filterStreamListener: IFilterStreamListener<TStatus>? = null
     private val executorService = Executors.newSingleThreadExecutor()
-    public var follow: LongArray? by longArrayParam("follow")
-    public var track: Array<String>? by stringArrayParam("track")
-    public var locations: Array<String>? by stringArrayParam("locations")
+    var follow: LongArray? by longArrayParam("follow")
+    var track: Array<String>? by stringArrayParam("track")
+    var locations: Array<String>? by stringArrayParam("locations")
     /**
      * should not use this
      */
-    public var delimited: Boolean? by booleanParam("delimited")
-    public var stallWarnings: Boolean? by booleanParam("stall_warnings")
+    var delimited: Boolean? by booleanParam("delimited")
+    var stallWarnings: Boolean? by booleanParam("stall_warnings")
     override val url = "https://stream.twitter.com/1.1/statuses/filter.json"
     override val allowOauthType = OauthType.oauth1
     override val isAuthorization = true
@@ -57,9 +57,9 @@ class FilterStream<TStatus>(
             when (type) {
                 MessageType.status -> filterStreamListener!!.onStatus(json.toStatus(obj))
                 MessageType.deleteStatus -> {
-                    val delete = getJSONObject(obj,"delete")
-                    val status = getJSONObject(delete,"status")
-                    filterStreamListener!!.onDeleteStatus(getLong(status,"user_id"),getLong(status,"id"))
+                    val delete = getJSONObject(obj, "delete")
+                    val status = getJSONObject(delete, "status")
+                    filterStreamListener!!.onDeleteStatus(getLong(status, "user_id"), getLong(status, "id"))
                 }
                 else -> filterStreamListener!!.onUnknown(line)
             }

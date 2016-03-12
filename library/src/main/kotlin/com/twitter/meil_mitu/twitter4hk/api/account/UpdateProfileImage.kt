@@ -12,9 +12,9 @@ class UpdateProfileImage<TUser>(
         protected val json: IUserConverter<TUser>,
         image: File) : AbsPost<TUser>(oauth) {
 
-    public var image: File? by fileParam("image")
-    public var includeEntities: Boolean? by booleanParam("include_entities")
-    public var skipStatus: Boolean? by booleanParam("skip_status")
+    var image: File? by fileParam("image")
+    var includeEntities: Boolean? by booleanParam("include_entities")
+    var skipStatus: Boolean? by booleanParam("skip_status")
     override val url = "https://api.twitter.com/1.1/account/update_profile_image.json"
     override val allowOauthType = OauthType.oauth1
     override val isAuthorization = true

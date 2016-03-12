@@ -15,8 +15,8 @@ class Ids<TCursorIDs>(
     /**
      * must not use in JsonConverter for CursorIDs
      */
-    public var stringifyIds: Boolean? by booleanParam("stringify_ids")
-    public var cursor: Long? by longParam("cursor")
+    var stringifyIds: Boolean? by booleanParam("stringify_ids")
+    var cursor: Long? by longParam("cursor")
     override val url = "https://api.twitter.com/1.1/blocks/ids.json"
     override val allowOauthType = OauthType.oauth1
     override val isAuthorization = true

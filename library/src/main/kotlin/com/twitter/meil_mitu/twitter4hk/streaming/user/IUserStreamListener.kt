@@ -6,9 +6,9 @@ interface IUserStreamListener<TDirectMessage, TStatus, TUser, TUserList> {
 
     fun onStatus(status: TStatus)
 
-    fun onDeleteStatus(userId : Long,id:Long)
+    fun onDeleteStatus(userId: Long, id: Long)
 
-    fun onFriends(friends:LongArray)
+    fun onFriends(friends: LongArray)
 
     fun onDirectMessage(directMessage: TDirectMessage)
 
@@ -44,10 +44,10 @@ interface IUserStreamListener<TDirectMessage, TStatus, TUser, TUserList> {
 
     fun onUnMute(user: TUser, unmutedUser: TUser)
 
-    fun onFavoritedRetweet(user : TUser, favoritedRetweetingUser : TUser,status: TStatus)
+    fun onFavoritedRetweet(user: TUser, favoritedRetweetingUser: TUser, status: TStatus)
 
-    fun onRetweetedRetweet(user : TUser, retweetedRetweetingUser : TUser,status: TStatus)
+    fun onRetweetedRetweet(user: TUser, retweetedRetweetingUser: TUser, status: TStatus)
 
-    fun onQuotedTweet(user:TUser, quotedUser:TUser,status:TStatus)
+    fun onQuotedTweet(user: TUser, quotedUser: TUser, status: TStatus)
 
 }

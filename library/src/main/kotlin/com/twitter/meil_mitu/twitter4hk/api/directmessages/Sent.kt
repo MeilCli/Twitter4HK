@@ -12,11 +12,11 @@ class Sent<TDirectMessage>(
         protected val json: IDirectMessageConverter<TDirectMessage>) :
         AbsGet<ResponseData<TDirectMessage>>(oauth) {
 
-    public var sinceId: Long? by longParam("since_id")
-    public var maxId: Long? by longParam("max_id")
-    public var count: Int? by intParam("count")
-    public var page: Int? by intParam("page")
-    public var includeEntities: Boolean? by booleanParam("include_entities")
+    var sinceId: Long? by longParam("since_id")
+    var maxId: Long? by longParam("max_id")
+    var count: Int? by intParam("count")
+    var page: Int? by intParam("page")
+    var includeEntities: Boolean? by booleanParam("include_entities")
     override val url = "https://api.twitter.com/1.1/direct_messages/sent.json"
     override val allowOauthType = OauthType.oauth1
     override val isAuthorization = true

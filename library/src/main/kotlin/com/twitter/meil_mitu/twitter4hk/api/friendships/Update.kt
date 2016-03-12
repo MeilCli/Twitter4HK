@@ -11,10 +11,10 @@ class Update<TRelationship>(
         protected val json: IRelationshipConverter<TRelationship>) :
         AbsPost<TRelationship>(oauth) {
 
-    public var screenName: String? by stringParam("screen_name")
-    public var userId: Long? by longParam("user_id")
-    public var device: Boolean? by booleanParam("device")
-    public var retweets: Boolean? by booleanParam("retweets")
+    var screenName: String? by stringParam("screen_name")
+    var userId: Long? by longParam("user_id")
+    var device: Boolean? by booleanParam("device")
+    var retweets: Boolean? by booleanParam("retweets")
     override val url = "https://api.twitter.com/1.1/friendships/update.json"
     override val allowOauthType = OauthType.oauth1
     override val isAuthorization = true

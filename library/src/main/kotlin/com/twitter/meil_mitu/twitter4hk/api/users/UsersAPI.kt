@@ -10,38 +10,18 @@ class UsersAPI<TBanner, TSuggestion, TSuggestionUser, TUser>(
         protected val json: IUsersConverter<TBanner, TSuggestion, TSuggestionUser, TUser>) :
         AbsAPI(oauth) {
 
-    protected var suggestions: SuggestionsAPI<TSuggestion, TSuggestionUser, TUser>
+    val suggestions = SuggestionsAPI(oauth, json)
 
-    init {
-        suggestions = SuggestionsAPI(oauth, json)
-    }
+    fun lookup() = Lookup(oauth, json)
 
-    fun lookup(): Lookup<TUser> {
-        return Lookup(oauth, json)
-    }
+    fun show(userId: Long) = Show(oauth, json, userId)
 
-    fun show(userId: Long): Show<TUser> {
-        return Show(oauth, json, userId)
-    }
+    fun show(screenName: String) = Show(oauth, json, screenName)
 
-    fun show(screenName: String): Show<TUser> {
-        return Show(oauth, json, screenName)
-    }
+    fun search(q: String) = Search(oauth, json, q)
 
-    fun search(q: String): Search<TUser> {
-        return Search(oauth, json, q)
-    }
+    fun profileBanner() = ProfileBanner(oauth, json)
 
-    fun profileBanner(): ProfileBanner<TBanner> {
-        return ProfileBanner(oauth, json)
-    }
-
-    fun suggestions(): SuggestionsAPI<TSuggestion, TSuggestionUser, TUser> {
-        return suggestions
-    }
-
-    fun reportSpam(): ReportSpam<TUser> {
-        return ReportSpam(oauth, json)
-    }
+    fun reportSpam() = ReportSpam(oauth, json)
 
 }

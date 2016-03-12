@@ -12,15 +12,15 @@ class MentionsTimeline<TStatus>(
         protected val json: IStatusConverter<TStatus>) :
         AbsGet<ResponseList<TStatus>>(oauth) {
 
-    public var count: Int? by intParam("count")
-    public var sinceId: Long? by longParam("since_id")
-    public var maxId: Long? by longParam("max_id")
+    var count: Int? by intParam("count")
+    var sinceId: Long? by longParam("since_id")
+    var maxId: Long? by longParam("max_id")
     /**
      * must not use in JsonConverter for User
      */
-    public var trimUser: Boolean? by booleanParam("trim_user")
-    public var contributorDetails: Boolean? by booleanParam("contributor_details")
-    public var includeEntities: Boolean? by booleanParam("include_entities")
+    var trimUser: Boolean? by booleanParam("trim_user")
+    var contributorDetails: Boolean? by booleanParam("contributor_details")
+    var includeEntities: Boolean? by booleanParam("include_entities")
     override val url = "https://api.twitter.com/1.1/statuses/mentions_timeline.json"
     override val allowOauthType = OauthType.oauth1
     override val isAuthorization = true

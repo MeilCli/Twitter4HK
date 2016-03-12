@@ -8,23 +8,14 @@ class DirectMessagesAPI<TDirectMessage>(
         oauth: AbsOauth,
         protected val json: IDirectMessagesConverter<TDirectMessage>) : AbsAPI(oauth) {
 
-    fun sent(): Sent<TDirectMessage> {
-        return Sent(oauth, json)
-    }
+    fun sent() = Sent(oauth, json)
 
-    fun show(id: Long): Show<TDirectMessage> {
-        return Show(oauth, json, id)
-    }
+    fun show(id: Long) = Show(oauth, json, id)
 
-    fun get(): Get<TDirectMessage> {
-        return Get(oauth, json)
-    }
+    fun get() = Get(oauth, json)
 
-    fun destroy(id: Long): Destroy<TDirectMessage> {
-        return Destroy(oauth, json, id)
-    }
+    fun destroy(id: Long) = Destroy(oauth, json, id)
 
-    fun postNew(text: String): PostNew<TDirectMessage> {
-        return PostNew(oauth, json, text)
-    }
+    fun postNew(text: String) = PostNew(oauth, json, text)
+
 }

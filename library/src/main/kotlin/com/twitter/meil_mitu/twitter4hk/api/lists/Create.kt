@@ -10,9 +10,9 @@ class Create<TUserList>(
         oauth: AbsOauth,
         protected val json: IUserListConverter<TUserList>) : AbsPost<TUserList>(oauth) {
 
-    public var name: String? by stringParam("name")
-    public var mode: String? by stringParam("mode")
-    public var description: String? by stringParam("description")
+    var name: String? by stringParam("name")
+    var mode: String? by stringParam("mode")
+    var description: String? by stringParam("description")
     override val url = "https://api.twitter.com/1.1/lists/create.json"
     override val allowOauthType = OauthType.oauth1
     override val isAuthorization = true

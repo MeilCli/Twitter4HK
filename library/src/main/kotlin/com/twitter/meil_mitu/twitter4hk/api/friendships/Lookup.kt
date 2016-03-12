@@ -9,11 +9,11 @@ import com.twitter.meil_mitu.twitter4hk.exception.Twitter4HKException
 
 class Lookup<TFriendship>(
         oauth: AbsOauth,
-        protected val  json: IFriendshipConverter<TFriendship>) :
+        protected val json: IFriendshipConverter<TFriendship>) :
         AbsGet<ResponseList<TFriendship>>(oauth) {
 
-    public var screenName: Array<String>? by stringArrayParam("screen_name")
-    public var userId: LongArray? by longArrayParam("user_id")
+    var screenName: Array<String>? by stringArrayParam("screen_name")
+    var userId: LongArray? by longArrayParam("user_id")
     override val url = "https://api.twitter.com/1.1/friendships/lookup.json"
     override val allowOauthType = OauthType.oauth1
     override val isAuthorization = true

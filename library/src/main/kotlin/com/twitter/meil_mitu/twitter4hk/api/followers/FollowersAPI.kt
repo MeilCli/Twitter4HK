@@ -8,11 +8,8 @@ class FollowersAPI<TCursorIDs, TCursorUsers>(
         oauth: AbsOauth,
         protected val json: IFollowersConverter<TCursorIDs, TCursorUsers>) : AbsAPI(oauth) {
 
-    fun ids(): Ids<TCursorIDs> {
-        return Ids(oauth, json)
-    }
+    fun ids() = Ids(oauth, json)
 
-    fun list(): List<TCursorUsers> {
-        return List(oauth, json)
-    }
+    fun list() = List(oauth, json)
+
 }

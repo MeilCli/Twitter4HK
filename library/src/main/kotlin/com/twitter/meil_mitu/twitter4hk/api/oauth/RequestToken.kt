@@ -15,7 +15,7 @@ class RequestToken(
         AbsPost<OauthRequestToken>(oauth) {
 
     private var oauth1: Oauth
-    public var oauthCallback: String? by stringParam("oauth_callback")
+    var oauthCallback: String? by stringParam("oauth_callback")
     override val url = "https://api.twitter.com/oauth/request_token"
     override val allowOauthType = OauthType.oauth1RequestToken
     override val isAuthorization = true

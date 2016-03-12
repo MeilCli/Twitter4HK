@@ -29,11 +29,11 @@ object MessageType {
     val unMute = 18
     //https://twittercommunity.com/t/addition-of-new-social-event-to-streaming-api-retweet-has-been-retweeted/30911
     val favoritedRetweet = 19
-    val retweetedRetweet=20
+    val retweetedRetweet = 20
     //https://twittercommunity.com/t/quote-tweet-events-in-the-streaming-api/38457
-    val quotedTweet=21
-    val friends=22
-    val deleteStatus=23
+    val quotedTweet = 21
+    val friends = 22
+    val deleteStatus = 23
 
     fun type(obj: JSONObject): Int {
         if (obj.isNull("sender") == false) {
@@ -42,11 +42,11 @@ object MessageType {
             return MessageType.status
         } else if (obj.isNull("direct_message") == false) {
             return MessageType.directMessage
-        }else if(obj.isNull("friends")==false) {
+        } else if (obj.isNull("friends") == false) {
             return MessageType.friends
-        }else if(obj.isNull("delete")==false){
-            val delete = getJSONObject(obj,"delete")
-            if(delete.isNull("status")==false){
+        } else if (obj.isNull("delete") == false) {
+            val delete = getJSONObject(obj, "delete")
+            if (delete.isNull("status") == false) {
                 return MessageType.deleteStatus
             }
         } else if (obj.isNull("event") == false) {
@@ -84,11 +84,11 @@ object MessageType {
                     return MessageType.mute
                 } else if (event == "unmute") {
                     return MessageType.unMute
-                }else if(event=="favorited_retweet"){
+                } else if (event == "favorited_retweet") {
                     return MessageType.favoritedRetweet
-                }else if(event=="retweeted_retweet"){
+                } else if (event == "retweeted_retweet") {
                     return MessageType.retweetedRetweet
-                }else if(event=="quoted_tweet"){
+                } else if (event == "quoted_tweet") {
                     return MessageType.quotedTweet
                 }
             } catch (e: Twitter4HKException) {

@@ -25,11 +25,11 @@ class Stream(private val param: IStreamParam) : Thread() {
         super.start()
     }
 
-    fun closeStream(){
+    fun closeStream() {
         if (br != null) {
             try {
                 br!!.close()
-                br=null
+                br = null
             } catch (e: IOException) {
                 e.printStackTrace()
             }
@@ -37,7 +37,7 @@ class Stream(private val param: IStreamParam) : Thread() {
         if (input != null) {
             try {
                 input!!.close()
-                input=null
+                input = null
             } catch (e: IOException) {
                 e.printStackTrace()
             }
@@ -141,7 +141,7 @@ class Stream(private val param: IStreamParam) : Thread() {
                 HttpURLConnection.HTTP_NOT_FOUND,
                 HttpURLConnection.HTTP_NOT_ACCEPTABLE,
                 HttpURLConnection.HTTP_ENTITY_TOO_LARGE,
-                420-> return false
+                420 -> return false
             }
             return true
         }

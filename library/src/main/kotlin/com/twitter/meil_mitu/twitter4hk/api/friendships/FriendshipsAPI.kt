@@ -10,36 +10,20 @@ class FriendshipsAPI<TCursorIDs, TFriendship, TIDs, TRelationship, TUser>(
         <TCursorIDs, TFriendship, TIDs, TRelationship, TUser>) :
         AbsAPI(oauth) {
 
-    fun noRetweets(): NoRetweets<TIDs> {
-        return NoRetweets(oauth, json)
-    }
+    fun noRetweets() = NoRetweets(oauth, json)
 
-    fun incoming(): Incoming<TCursorIDs> {
-        return Incoming(oauth, json)
-    }
+    fun incoming() = Incoming(oauth, json)
 
-    fun outgoing(): Outgoing<TCursorIDs> {
-        return Outgoing(oauth, json)
-    }
+    fun outgoing() = Outgoing(oauth, json)
 
-    fun create(): Create<TUser> {
-        return Create(oauth, json)
-    }
+    fun create() = Create(oauth, json)
 
-    fun destroy(): Destroy<TUser> {
-        return Destroy(oauth, json)
-    }
+    fun destroy() = Destroy(oauth, json)
 
-    fun update(): Update<TRelationship> {
-        return Update(oauth, json)
-    }
+    fun update() = Update(oauth, json)
 
-    fun show(): Show<TRelationship> {
-        return Show(oauth, json)
-    }
+    fun show() = Show(oauth, json)
 
-    fun lookup(): Lookup<TFriendship> {
-        return Lookup(oauth, json)
-    }
+    fun lookup() = Lookup(oauth, json)
 
 }

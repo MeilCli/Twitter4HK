@@ -10,10 +10,10 @@ class Destroy<TUser>(
         oauth: AbsOauth,
         protected val json: IUserConverter<TUser>) : AbsPost<TUser>(oauth) {
 
-    public var screenName: String? by stringParam("screen_name")
-    public var userId: Long? by longParam("user_id")
-    public var includeEntities: Boolean? by booleanParam("include_entities")
-    public var skipStatus: Boolean? by booleanParam("skip_status")
+    var screenName: String? by stringParam("screen_name")
+    var userId: Long? by longParam("user_id")
+    var includeEntities: Boolean? by booleanParam("include_entities")
+    var skipStatus: Boolean? by booleanParam("skip_status")
     override val url = "https://api.twitter.com/1.1/blocks/destroy.json"
     override val allowOauthType = OauthType.oauth1
     override val isAuthorization = true

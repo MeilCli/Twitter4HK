@@ -12,10 +12,10 @@ class Subscriptions<TCursorLists>(
         protected val json: ICursorListsConverter<TCursorLists>) :
         AbsGet<ResponseData<TCursorLists>>(oauth) {
 
-    public var userId: Long? by longParam("user_id")
-    public var screenName: String? by stringParam("screen_name")
-    public var count: Int? by intParam("count")
-    public var cursor: Long? by longParam("cursor")
+    var userId: Long? by longParam("user_id")
+    var screenName: String? by stringParam("screen_name")
+    var count: Int? by intParam("count")
+    var cursor: Long? by longParam("cursor")
     override val url = "https://api.twitter.com/1.1/lists/subscriptions.json"
     override val allowOauthType = OauthType.oauth1 or OauthType.oauth2
     override val isAuthorization = true

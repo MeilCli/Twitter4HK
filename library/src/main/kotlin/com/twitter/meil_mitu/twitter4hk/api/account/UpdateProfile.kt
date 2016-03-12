@@ -10,13 +10,13 @@ class UpdateProfile<TUser>(
         oauth: AbsOauth,
         protected val json: IUserConverter<TUser>) : AbsPost<TUser>(oauth) {
 
-    public var name: String? by stringParam("name")
-    public var profileUrl: String? by stringParam("url")
-    public var location: String? by stringParam("location")
-    public var description: String? by stringParam("description")
-    public var profileLinkColor: String? by stringParam("profile_link_color")
-    public var includeEntities: Boolean? by booleanParam("include_entities")
-    public var skipStatus: Boolean? by booleanParam("skip_status")
+    var name: String? by stringParam("name")
+    var profileUrl: String? by stringParam("url")
+    var location: String? by stringParam("location")
+    var description: String? by stringParam("description")
+    var profileLinkColor: String? by stringParam("profile_link_color")
+    var includeEntities: Boolean? by booleanParam("include_entities")
+    var skipStatus: Boolean? by booleanParam("skip_status")
     override val url = "https://api.twitter.com/1.1/account/update_profile.json"
     override val allowOauthType = OauthType.oauth1
     override val isAuthorization = true

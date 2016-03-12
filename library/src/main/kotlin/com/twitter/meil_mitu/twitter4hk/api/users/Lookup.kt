@@ -11,9 +11,9 @@ class Lookup<TUser>(
         oauth: AbsOauth,
         protected val json: IUserConverter<TUser>) : AbsGet<ResponseList<TUser>>(oauth) {
 
-    public var screenName: Array<String>? by stringArrayParam("screen_name")
-    public var userId: LongArray? by longArrayParam("user_id")
-    public var includeEntities: Boolean? by booleanParam("include_entities")
+    var screenName: Array<String>? by stringArrayParam("screen_name")
+    var userId: LongArray? by longArrayParam("user_id")
+    var includeEntities: Boolean? by booleanParam("include_entities")
     override val url = "https://api.twitter.com/1.1/users/lookup.json"
     override val allowOauthType = OauthType.oauth1 or OauthType.oauth2
     override val isAuthorization = true

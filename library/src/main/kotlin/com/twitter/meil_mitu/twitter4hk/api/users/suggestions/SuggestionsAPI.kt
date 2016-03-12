@@ -9,15 +9,10 @@ class SuggestionsAPI<TSuggestion, TSuggestionUser, TUser>(
         protected val json: IUsersSuggestionsConverter<TSuggestion, TSuggestionUser, TUser>) :
         AbsAPI(oauth) {
 
-    operator fun get(slug: String): Get<TSuggestionUser> {
-        return Get(oauth, json, slug)
-    }
+    fun get(slug: String) = Get(oauth, json, slug)
 
-    fun list(): List<TSuggestion> {
-        return List(oauth, json)
-    }
+    fun list() = List(oauth, json)
 
-    fun members(slug: String): Members<TUser> {
-        return Members(oauth, json, slug)
-    }
+    fun members(slug: String) = Members(oauth, json, slug)
+
 }

@@ -12,18 +12,18 @@ class Update<TStatus>(
         status: String) :
         AbsPost<TStatus>(oauth) {
 
-    public var status: String? by stringParam("status")
-    public var inReplyToStatusId: Long? by longParam("in_reply_to_status_id")
-    public var possiblySensitive: Boolean? by booleanParam("possibly_sensitive")
-    public var latitude: String? by stringParam("lat")
-    public var longitude: String? by stringParam("long")
-    public var placeId: String? by stringParam("place_id")
-    public var displayCoordinates: Boolean? by booleanParam("display_coordinates")
+    var status: String? by stringParam("status")
+    var inReplyToStatusId: Long? by longParam("in_reply_to_status_id")
+    var possiblySensitive: Boolean? by booleanParam("possibly_sensitive")
+    var latitude: String? by stringParam("lat")
+    var longitude: String? by stringParam("long")
+    var placeId: String? by stringParam("place_id")
+    var displayCoordinates: Boolean? by booleanParam("display_coordinates")
     /**
      * must not use in JsonConverter for User
      */
-    public var trimUser: Boolean? by booleanParam("trim_user")
-    public var mediaIds: LongArray? by longArrayParam("media_ids")
+    var trimUser: Boolean? by booleanParam("trim_user")
+    var mediaIds: LongArray? by longArrayParam("media_ids")
     override val url = "https://api.twitter.com/1.1/statuses/update.json"
     override val allowOauthType = OauthType.oauth1
     override val isAuthorization = true

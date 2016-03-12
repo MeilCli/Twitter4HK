@@ -9,51 +9,28 @@ class StatusesAPI<TCursorIDs, TOembedStatus, TStatus>(
         protected val json: IStatusesConverter<TCursorIDs, TOembedStatus, TStatus>) :
         AbsAPI(oauth) {
 
-    fun mentionsTimeline(): MentionsTimeline<TStatus> {
-        return MentionsTimeline(oauth, json)
-    }
+    fun mentionsTimeline() = MentionsTimeline(oauth, json)
 
-    fun userTimeline(): UserTimeline<TStatus> {
-        return UserTimeline(oauth, json)
-    }
+    fun userTimeline() = UserTimeline(oauth, json)
 
-    fun homeTimeline(): HomeTimeline<TStatus> {
-        return HomeTimeline(oauth, json)
-    }
+    fun homeTimeline() = HomeTimeline(oauth, json)
 
-    fun retweetsOfMe(): RetweetsOfMe <TStatus> {
-        return RetweetsOfMe(oauth, json)
-    }
+    fun retweetsOfMe() = RetweetsOfMe(oauth, json)
 
-    fun retweets(id: Long): Retweets<TStatus> {
-        return Retweets(oauth, json, id)
-    }
+    fun retweets(id: Long) = Retweets(oauth, json, id)
 
-    fun show(id: Long): Show<TStatus> {
-        return Show(oauth, json, id)
-    }
+    fun show(id: Long) = Show(oauth, json, id)
 
-    fun destroy(id: Long): Destroy<TStatus> {
-        return Destroy(oauth, json, id)
-    }
+    fun destroy(id: Long) = Destroy(oauth, json, id)
 
-    fun update(status: String): Update<TStatus> {
-        return Update(oauth, json, status)
-    }
+    fun update(status: String) = Update(oauth, json, status)
 
-    fun retweet(id: Long): Retweet<TStatus> {
-        return Retweet(oauth, json, id)
-    }
+    fun retweet(id: Long) = Retweet(oauth, json, id)
 
-    fun oembed(id: Long): Oembed<TOembedStatus> {
-        return Oembed(oauth, json, id)
-    }
+    fun oembed(id: Long) = Oembed(oauth, json, id)
 
-    fun retweeters(id: Long): Retweeters<TCursorIDs> {
-        return Retweeters(oauth, json, id)
-    }
+    fun retweeters(id: Long) = Retweeters(oauth, json, id)
 
-    fun lookup(id: LongArray): Lookup<TStatus> {
-        return Lookup(oauth, json, id)
-    }
+    fun lookup(id: LongArray) = Lookup(oauth, json, id)
+
 }

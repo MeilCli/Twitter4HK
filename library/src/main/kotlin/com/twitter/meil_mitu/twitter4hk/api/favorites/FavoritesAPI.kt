@@ -8,16 +8,10 @@ class FavoritesAPI<TStatus>(
         oauth: AbsOauth,
         protected val json: IFavoritesConverter<TStatus>) : AbsAPI(oauth) {
 
-    fun list(): List<TStatus> {
-        return List(oauth, json)
-    }
+    fun list() = List(oauth, json)
 
-    fun destroy(id: Long): Destroy<TStatus> {
-        return Destroy(oauth, json, id)
-    }
+    fun destroy(id: Long) = Destroy(oauth, json, id)
 
-    fun create(id: Long): Create<TStatus> {
-        return Create(oauth, json, id)
-    }
+    fun create(id: Long) = Create(oauth, json, id)
 
 }

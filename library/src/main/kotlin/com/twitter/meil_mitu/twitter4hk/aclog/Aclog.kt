@@ -8,14 +8,8 @@ import com.twitter.meil_mitu.twitter4hk.aclog.converter.api.IAclogConverter
 open class Aclog<TAclogStats, TAclogStatus, TAclogUser>(
         protected var oauth: AbsOauth,
         protected var json: IAclogConverter<TAclogStats, TAclogStatus, TAclogUser>) {
-    public val tweets: TweetsAPI<TAclogStatus>
-    public val users: UsersAPI<TAclogStats, TAclogUser>
 
-    init {
-        //api
-        this.tweets = TweetsAPI(oauth, json)
-        this.users = UsersAPI(oauth, json)
-    }
-
+    val tweets = TweetsAPI(oauth, json)
+    val users = UsersAPI(oauth, json)
 
 }

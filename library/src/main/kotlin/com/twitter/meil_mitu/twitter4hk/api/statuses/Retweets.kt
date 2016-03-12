@@ -12,11 +12,11 @@ class Retweets<TStatus>(
         protected val json: IStatusConverter<TStatus>,
         private val id: Long) : AbsGet<ResponseList<TStatus>>(oauth) {
 
-    public var count: Int? by intParam("count")
+    var count: Int? by intParam("count")
     /**
      * must not use in JsonConverter for User
      */
-    public var trimUser: Boolean? by booleanParam("trim_user")
+    var trimUser: Boolean? by booleanParam("trim_user")
     override val url = "https://api.twitter.com/1.1/statuses/retweets/$id.json"
     override val allowOauthType = OauthType.oauth1 or OauthType.oauth2
     override val isAuthorization = true

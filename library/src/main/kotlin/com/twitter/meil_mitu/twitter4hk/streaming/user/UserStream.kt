@@ -23,20 +23,20 @@ class UserStream<TDirectMessage, TStatus, TUser, TUserList>(
         AbsGet<Stream>(oauth), IStreamParam {
 
     override var streamListener: IStreamListener? = null
-    public var userStreamListener
+    var userStreamListener
             : IUserStreamListener<TDirectMessage, TStatus, TUser, TUserList>? = null
     private val executorService = Executors.newSingleThreadExecutor()
 
     /**
      * should not use this
      */
-    public var delimited: Boolean? by booleanParam("delimited")
-    public var stallWarnings: Boolean? by booleanParam("stall_warnings")
-    public var with: String? by stringParam("with")
-    public var replies: String? by stringParam("replies")
-    public var track: Array<String>? by stringArrayParam("track")
-    public var locations: Array<String>? by stringArrayParam("locations")
-    public var stringifyFriendIds: Boolean? by booleanParam("stringify_friend_ids")
+    var delimited: Boolean? by booleanParam("delimited")
+    var stallWarnings: Boolean? by booleanParam("stall_warnings")
+    var with: String? by stringParam("with")
+    var replies: String? by stringParam("replies")
+    var track: Array<String>? by stringArrayParam("track")
+    var locations: Array<String>? by stringArrayParam("locations")
+    var stringifyFriendIds: Boolean? by booleanParam("stringify_friend_ids")
     override val url = "https://userstream.twitter.com/1.1/user.json"
     override val allowOauthType = OauthType.oauth1
     override val isAuthorization = true
@@ -63,17 +63,17 @@ class UserStream<TDirectMessage, TStatus, TUser, TUserList>(
             when (type) {
                 MessageType.status -> userStreamListener!!.onStatus(json.toStatus(obj))
                 MessageType.deleteStatus -> {
-                    val delete = getJSONObject(obj,"delete")
-                    val status = getJSONObject(delete,"status")
+                    val delete = getJSONObject(obj, "delete")
+                    val status = getJSONObject(delete, "status")
                     userStreamListener!!.onDeleteStatus(
                             JsonUtils.getLong(status, "user_id"),
                             JsonUtils.getLong(status, "id"))
                 }
-                MessageType.friends->{
-                    val friends = getJSONArray(obj,"friends")
+                MessageType.friends -> {
+                    val friends = getJSONArray(obj, "friends")
                     val ar = LongArray(friends.length())
-                    for(i in 0..friends.length()-1){
-                        ar[i]=getLong(friends,i)
+                    for (i in 0..friends.length() - 1) {
+                        ar[i] = getLong(friends, i)
                     }
                     userStreamListener!!.onFriends(ar)
                 }

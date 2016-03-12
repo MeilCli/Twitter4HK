@@ -10,44 +10,24 @@ class SubscribersAPI<TCursorUsers, TUser, TUserList>(
         protected val json: IListsSubscribersConverter<TCursorUsers, TUser, TUserList>) :
         AbsAPI(oauth) {
 
-    operator fun get(listId: Long): Get<TCursorUsers> {
-        return Get(oauth, json, listId)
-    }
+    fun get(listId: Long) = Get(oauth, json, listId)
 
-    operator fun get(slug: String): Get<TCursorUsers> {
-        return Get(oauth, json, slug)
-    }
+    fun get(slug: String) = Get(oauth, json, slug)
 
-    fun create(listId: Long): Create<TUserList> {
-        return Create(oauth, json, listId)
-    }
+    fun create(listId: Long) = Create(oauth, json, listId)
 
-    fun create(slug: String): Create<TUserList> {
-        return Create(oauth, json, slug)
-    }
+    fun create(slug: String) = Create(oauth, json, slug)
 
-    fun show(listId: Long, userId: Long): Show<TUser> {
-        return Show(oauth, json, listId, userId)
-    }
+    fun show(listId: Long, userId: Long) = Show(oauth, json, listId, userId)
 
-    fun show(listId: Long, screenName: String): Show<TUser> {
-        return Show(oauth, json, listId, screenName)
-    }
+    fun show(listId: Long, screenName: String) = Show(oauth, json, listId, screenName)
 
-    fun show(slug: String, userId: Long): Show<TUser> {
-        return Show(oauth, json, slug, userId)
-    }
+    fun show(slug: String, userId: Long) = Show(oauth, json, slug, userId)
 
-    fun show(slug: String, screenName: String): Show<TUser> {
-        return Show(oauth, json, slug, screenName)
-    }
+    fun show(slug: String, screenName: String) = Show(oauth, json, slug, screenName)
 
-    fun destroy(listId: Long): Destroy<TUserList> {
-        return Destroy(oauth, json, listId)
-    }
+    fun destroy(listId: Long) = Destroy(oauth, json, listId)
 
-    fun destroy(slug: String): Destroy<TUserList> {
-        return Destroy(oauth, json, slug)
-    }
+    fun destroy(slug: String) = Destroy(oauth, json, slug)
 
 }

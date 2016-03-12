@@ -10,8 +10,8 @@ class Create<TUser>(
         oauth: AbsOauth,
         protected val json: IUserConverter<TUser>) : AbsPost<TUser>(oauth) {
 
-    public var screenName: String? by stringParam("screen_name")
-    public var userId: Long? by longParam("user_id")
+    var screenName: String? by stringParam("screen_name")
+    var userId: Long? by longParam("user_id")
     override val url = "https://api.twitter.com/1.1/mutes/users/create.json"
     override val allowOauthType = OauthType.oauth1
     override val isAuthorization = true

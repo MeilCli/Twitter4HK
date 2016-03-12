@@ -12,7 +12,7 @@ class Show<TDirectMessage>(
         protected val json: IDirectMessageConverter<TDirectMessage>,
         id: Long) : AbsGet<ResponseData<TDirectMessage>>(oauth) {
 
-    public var id: Long? by longParam("id")
+    var id: Long? by longParam("id")
     override val url = "https://api.twitter.com/1.1/direct_messages/show.json"
     override val allowOauthType = OauthType.oauth1
     override val isAuthorization = true

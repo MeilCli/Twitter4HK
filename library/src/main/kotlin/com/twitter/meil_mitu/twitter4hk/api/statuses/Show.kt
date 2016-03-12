@@ -12,13 +12,13 @@ class Show<TStatus>(
         protected val json: IStatusConverter<TStatus>,
         id: Long) : AbsGet<ResponseData<TStatus>>(oauth) {
 
-    public var id: Long? by longParam("id")
+    var id: Long? by longParam("id")
     /**
      * must not use in JsonConverter for User
      */
-    public var trimUser: Boolean? by booleanParam("trim_user")
-    public var includeMyRetweet: Boolean? by booleanParam("include_my_retweet")
-    public var includeEntities: Boolean? by booleanParam("include_entities")
+    var trimUser: Boolean? by booleanParam("trim_user")
+    var includeMyRetweet: Boolean? by booleanParam("include_my_retweet")
+    var includeEntities: Boolean? by booleanParam("include_entities")
     override val url = "https://api.twitter.com/1.1/statuses/show.json"
     override val allowOauthType = OauthType.oauth1 or OauthType.oauth2
     override val isAuthorization = true

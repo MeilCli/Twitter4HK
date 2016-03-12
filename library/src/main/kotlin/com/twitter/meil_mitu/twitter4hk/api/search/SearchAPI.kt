@@ -8,8 +8,6 @@ class SearchAPI<TSearchResult>(
         oauth: AbsOauth,
         protected val json: ISearchConverter<TSearchResult>) : AbsAPI(oauth) {
 
-    fun tweets(q: String): Tweets<TSearchResult> {
-        return Tweets(oauth, json, q)
-    }
+    fun tweets(q: String) = Tweets(oauth, json, q)
 
 }

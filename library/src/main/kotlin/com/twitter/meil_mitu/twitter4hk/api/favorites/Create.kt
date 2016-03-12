@@ -10,8 +10,8 @@ class Create<TStatus>(
         oauth: AbsOauth,
         protected val json: IStatusConverter<TStatus>, id: Long) : AbsPost<TStatus>(oauth) {
 
-    public var id: Long? by longParam("id")
-    public var includeEntities: Boolean? by booleanParam("include_entities")
+    var id: Long? by longParam("id")
+    var includeEntities: Boolean? by booleanParam("include_entities")
     override val url = "https://api.twitter.com/1.1/favorites/create.json"
     override val allowOauthType = OauthType.oauth1
     override val isAuthorization = true

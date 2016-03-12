@@ -12,10 +12,10 @@ class Search<TUser>(
         protected val json: IUserConverter<TUser>,
         q: String) : AbsGet<ResponseList<TUser>>(oauth) {
 
-    public var q: String? by stringParam("q")
-    public var page: Int? by intParam("page")
-    public var count: Int? by intParam("count")
-    public var includeEntities: Boolean? by booleanParam("include_entities")
+    var q: String? by stringParam("q")
+    var page: Int? by intParam("page")
+    var count: Int? by intParam("count")
+    var includeEntities: Boolean? by booleanParam("include_entities")
     override val url = "https://api.twitter.com/1.1/users/search.json"
     override val allowOauthType = OauthType.oauth1
     override val isAuthorization = true

@@ -11,72 +11,33 @@ class ListsAPI<TCursorLists, TCursorUsers, TStatus, TUser, TUserList>(
         protected val json: IListsConverter
         <TCursorLists, TCursorUsers, TStatus, TUser, TUserList>) : AbsAPI(oauth) {
 
-    protected var Members: MembersAPI<TCursorUsers, TUser, TUserList>
-    protected var Subscribers: SubscribersAPI<TCursorUsers, TUser, TUserList>
+    val members = MembersAPI(oauth, json)
+    val subscribers = SubscribersAPI(oauth, json)
 
-    init {
-        this.Members = MembersAPI(oauth, json)
-        this.Subscribers = SubscribersAPI(oauth, json)
-    }
+    fun list() = List(oauth, json)
 
-    fun list(): List<TUserList> {
-        return List(oauth, json)
-    }
+    fun statuses(listId: Long) = Statuses(oauth, json, listId)
 
-    fun statuses(listId: Long): Statuses<TStatus> {
-        return Statuses(oauth, json, listId)
-    }
+    fun statuses(slug: String) = Statuses(oauth, json, slug)
 
-    fun statuses(slug: String): Statuses<TStatus> {
-        return Statuses(oauth, json, slug)
-    }
+    fun memberships() = Memberships(oauth, json)
 
-    fun members(): MembersAPI<TCursorUsers, TUser, TUserList> {
-        return Members
-    }
+    fun destroy(listId: Long) = Destroy(oauth, json, listId)
 
-    fun memberships(): Memberships<TCursorLists> {
-        return Memberships(oauth, json)
-    }
+    fun destroy(slug: String) = Destroy(oauth, json, slug)
 
-    fun subscribers(): SubscribersAPI<TCursorUsers, TUser, TUserList> {
-        return Subscribers
-    }
+    fun update(listId: Long) = Update(oauth, json, listId)
 
-    fun destroy(listId: Long): Destroy<TUserList> {
-        return Destroy(oauth, json, listId)
-    }
+    fun update(slug: String) = Update(oauth, json, slug)
 
-    fun destroy(slug: String): Destroy<TUserList> {
-        return Destroy(oauth, json, slug)
-    }
+    fun create() = Create(oauth, json)
 
-    fun update(listId: Long): Update<TUserList> {
-        return Update(oauth, json, listId)
-    }
+    fun show(listId: Long) = Show(oauth, json, listId)
 
-    fun update(slug: String): Update<TUserList> {
-        return Update(oauth, json, slug)
-    }
+    fun show(slug: String) = Show(oauth, json, slug)
 
-    fun create(): Create<TUserList> {
-        return Create(oauth, json)
-    }
+    fun subscriptions() = Subscriptions(oauth, json)
 
-    fun show(listId: Long): Show<TUserList> {
-        return Show(oauth, json, listId)
-    }
-
-    fun show(slug: String): Show<TUserList> {
-        return Show(oauth, json, slug)
-    }
-
-    fun subscriptions(): Subscriptions<TCursorLists> {
-        return Subscriptions(oauth, json)
-    }
-
-    fun ownerships(): Ownerships<TCursorLists> {
-        return Ownerships(oauth, json)
-    }
+    fun ownerships() = Ownerships(oauth, json)
 
 }

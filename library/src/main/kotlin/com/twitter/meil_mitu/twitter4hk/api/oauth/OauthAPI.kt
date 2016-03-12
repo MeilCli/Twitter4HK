@@ -28,11 +28,8 @@ class OauthAPI(oauth: AbsOauth, protected val json: IOauthConverter) : AbsAPI(oa
         return "https://api.twitter.com/oauth/authenticate?oauth_token=${oauth1.accessToken}"
     }
 
-    fun requestToken(): RequestToken {
-        return RequestToken(oauth, json)
-    }
+    fun requestToken() = RequestToken(oauth, json)
 
-    fun accessToken(verifier: String): AccessToken {
-        return AccessToken(oauth, json, verifier)
-    }
+    fun accessToken(verifier: String) = AccessToken(oauth, json, verifier)
+
 }

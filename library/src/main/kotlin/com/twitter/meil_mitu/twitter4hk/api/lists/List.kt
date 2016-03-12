@@ -12,9 +12,9 @@ class List<TUserList>(
         protected val json: IUserListConverter<TUserList>) :
         AbsGet<ResponseList<TUserList>>(oauth) {
 
-    public var userId: Long? by longParam("user_id")
-    public var screenName: String? by stringParam("screen_name")
-    public var reverse: Boolean? by booleanParam("reverse")
+    var userId: Long? by longParam("user_id")
+    var screenName: String? by stringParam("screen_name")
+    var reverse: Boolean? by booleanParam("reverse")
     override val url = "https://api.twitter.com/1.1/lists/list.json"
     override val allowOauthType = OauthType.oauth1 or OauthType.oauth2
     override val isAuthorization = true

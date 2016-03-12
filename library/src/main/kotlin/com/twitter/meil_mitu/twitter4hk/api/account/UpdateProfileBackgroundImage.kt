@@ -11,11 +11,11 @@ class UpdateProfileBackgroundImage<TUser>(
         oauth: AbsOauth,
         protected val json: IUserConverter<TUser>) : AbsPost<TUser>(oauth) {
 
-    public var image: File? by fileParam("image")
-    public var tile: Boolean? by booleanParam("tile")
-    public var includeEntities: Boolean? by booleanParam("include_entities")
-    public var skipStatus: Boolean? by booleanParam("skip_status")
-    public var use: Boolean? by booleanParam("use")
+    var image: File? by fileParam("image")
+    var tile: Boolean? by booleanParam("tile")
+    var includeEntities: Boolean? by booleanParam("include_entities")
+    var skipStatus: Boolean? by booleanParam("skip_status")
+    var use: Boolean? by booleanParam("use")
     override val url = "https://api.twitter.com/1.1/account/update_profile_background_image.json"
     override val allowOauthType = OauthType.oauth1
     override val isAuthorization = true

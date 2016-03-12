@@ -8,16 +8,10 @@ class GeoAPI<TPlace, TPlaceQuery>(
         oauth: AbsOauth,
         protected val json: IGeoConverter<TPlace, TPlaceQuery>) : AbsAPI(oauth) {
 
-    fun id(placeId: String): Id<TPlace> {
-        return Id(oauth, json, placeId)
-    }
+    fun id(placeId: String) = Id(oauth, json, placeId)
 
-    fun reverseGeocode(latitude: String, longitude: String): ReverseGeocode<TPlaceQuery> {
-        return ReverseGeocode(oauth, json, latitude, longitude)
-    }
+    fun reverseGeocode(latitude: String, longitude: String) = ReverseGeocode(oauth, json, latitude, longitude)
 
-    fun search(): Search<TPlaceQuery> {
-        return Search(oauth, json)
-    }
+    fun search() = Search(oauth, json)
 
 }

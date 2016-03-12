@@ -14,7 +14,7 @@ class Destroy<TStatus>(
     /**
      * must not use in JsonConverter for User
      */
-    public var trimUser: Boolean? by booleanParam("trim_user")
+    var trimUser: Boolean? by booleanParam("trim_user")
     override val url = "https://api.twitter.com/1.1/statuses/destroy/$id.json"
     override val allowOauthType = OauthType.oauth1
     override val isAuthorization = true

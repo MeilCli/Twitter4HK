@@ -11,9 +11,9 @@ class PostNew<TDirectMessage>(
         protected val json: IDirectMessageConverter<TDirectMessage>,
         text: String) : AbsPost<TDirectMessage>(oauth) {
 
-    public var text: String? by stringParam("text")
-    public var userId: Long? by longParam("user_id")
-    public var screenName: String? by stringParam("screen_name")
+    var text: String? by stringParam("text")
+    var userId: Long? by longParam("user_id")
+    var screenName: String? by stringParam("screen_name")
     override val url = "https://api.twitter.com/1.1/direct_messages/new.json"
     override val allowOauthType = OauthType.oauth1
     override val isAuthorization = true

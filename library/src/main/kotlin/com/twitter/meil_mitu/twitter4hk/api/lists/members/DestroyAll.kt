@@ -9,12 +9,12 @@ import com.twitter.meil_mitu.twitter4hk.exception.Twitter4HKException
 class DestroyAll<TUserList> : AbsPost<TUserList> {
 
     protected val json: IUserListConverter<TUserList>
-    public var listId: Long? by longParam("list_id")
-    public var slug: String? by stringParam("slug")
-    public var userId: LongArray? by longArrayParam("user_id")
-    public var screenName: Array<String>? by stringArrayParam("screen_name")
-    public var ownerScreenName: String? by stringParam("owner_screen_name")
-    public var ownerId: Long? by longParam("owner_id")
+    var listId: Long? by longParam("list_id")
+    var slug: String? by stringParam("slug")
+    var userId: LongArray? by longArrayParam("user_id")
+    var screenName: Array<String>? by stringArrayParam("screen_name")
+    var ownerScreenName: String? by stringParam("owner_screen_name")
+    var ownerId: Long? by longParam("owner_id")
     override val url = "https://api.twitter.com/1.1/lists/members/destroy_all.json"
     override val allowOauthType = OauthType.oauth1
     override val isAuthorization = true

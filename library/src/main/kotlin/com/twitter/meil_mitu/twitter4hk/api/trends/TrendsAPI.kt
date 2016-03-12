@@ -8,16 +8,10 @@ class TrendsAPI<TTrendPlace, TTrendResult>(
         oauth: AbsOauth,
         protected val json: ITrendsConverter<TTrendPlace, TTrendResult>) : AbsAPI(oauth) {
 
-    fun place(id: Int): Place<TTrendResult> {
-        return Place(oauth, json, id)
-    }
+    fun place(id: Int) = Place(oauth, json, id)
 
-    fun available(): Available<TTrendPlace> {
-        return Available(oauth, json)
-    }
+    fun available() = Available(oauth, json)
 
-    fun closest(): Closest<TTrendPlace> {
-        return Closest(oauth, json)
-    }
+    fun closest() = Closest(oauth, json)
 
 }

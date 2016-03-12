@@ -12,14 +12,14 @@ class Ids<TCursorIDs>(
         protected val json: ICursorIDsConverter<TCursorIDs>) :
         AbsGet<ResponseData<TCursorIDs>>(oauth) {
 
-    public var userId: Long? by longParam("user_id")
-    public var screenName: String? by stringParam("screen_name")
-    public var cursor: Long? by longParam("cursor")
+    var userId: Long? by longParam("user_id")
+    var screenName: String? by stringParam("screen_name")
+    var cursor: Long? by longParam("cursor")
     /**
      * must not use in JsonConverter for CursorIDs
      */
-    public var stringifyIds: Boolean? by booleanParam("stringify_ids")
-    public var count: Int? by intParam("count")
+    var stringifyIds: Boolean? by booleanParam("stringify_ids")
+    var count: Int? by intParam("count")
     override val url = "https://api.twitter.com/1.1/followers/ids.json"
     override val allowOauthType = OauthType.oauth1 or OauthType.oauth2
     override val isAuthorization = true

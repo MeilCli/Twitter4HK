@@ -12,18 +12,18 @@ class UserTimeline<TStatus>(
         protected val json: IStatusConverter<TStatus>) :
         AbsGet<ResponseList<TStatus>>(oauth) {
 
-    public var userId: Long? by longParam("user_id")
-    public var screenName: String? by stringParam("screen_name")
-    public var sinceId: Long? by longParam("since_id")
-    public var count: Int? by intParam("count")
-    public var maxId: Long? by longParam("max_id")
+    var userId: Long? by longParam("user_id")
+    var screenName: String? by stringParam("screen_name")
+    var sinceId: Long? by longParam("since_id")
+    var count: Int? by intParam("count")
+    var maxId: Long? by longParam("max_id")
     /**
      * must not use in JsonConverter for User
      */
-    public var trimUser: Boolean? by booleanParam("trim_user")
-    public var excludeReplies: Boolean? by booleanParam("exclude_replies")
-    public var contributorDetails: Boolean? by booleanParam("contributor_details")
-    public var includeRts: Boolean? by booleanParam("include_rts")
+    var trimUser: Boolean? by booleanParam("trim_user")
+    var excludeReplies: Boolean? by booleanParam("exclude_replies")
+    var contributorDetails: Boolean? by booleanParam("contributor_details")
+    var includeRts: Boolean? by booleanParam("include_rts")
     override val url = "https://api.twitter.com/1.1/statuses/user_timeline.json"
     override val allowOauthType = OauthType.oauth1 or OauthType.oauth2
     override val isAuthorization = true

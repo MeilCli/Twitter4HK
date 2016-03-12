@@ -10,20 +10,12 @@ class HelpAPI<TConfigurationResult, TLanguage, TPrivacyResult, TTosResult>(
         <TConfigurationResult, TLanguage, TPrivacyResult, TTosResult>) :
         AbsAPI(oauth) {
 
-    fun configuration(): Configuration<TConfigurationResult> {
-        return Configuration(oauth, json)
-    }
+    fun configuration() = Configuration(oauth, json)
 
-    fun languages(): Languages<TLanguage> {
-        return Languages(oauth, json)
-    }
+    fun languages() = Languages(oauth, json)
 
-    fun privacy(): Privacy<TPrivacyResult> {
-        return Privacy(oauth, json)
-    }
+    fun privacy() = Privacy(oauth, json)
 
-    fun tos(): Tos<TTosResult> {
-        return Tos(oauth, json)
-    }
+    fun tos() = Tos(oauth, json)
 
 }

@@ -12,8 +12,8 @@ class ProfileBanner<TBanner>(
         protected val json: IBannerConverter<TBanner>) :
         AbsGet<ResponseData<TBanner>>(oauth) {
 
-    public var userId: Long? by longParam("user_id")
-    public var screenName: String? by stringParam("screen_name")
+    var userId: Long? by longParam("user_id")
+    var screenName: String? by stringParam("screen_name")
     override val url = "https://api.twitter.com/1.1/users/profile_banner.json"
     override val allowOauthType = OauthType.oauth1
     override val isAuthorization = true

@@ -10,14 +10,14 @@ import com.twitter.meil_mitu.twitter4hk.exception.Twitter4HKException
 class Get<TCursorUsers> : AbsGet<ResponseData<TCursorUsers>> {
 
     protected val json: ICursorUsersConverter<TCursorUsers>
-    public var listId: Long? by longParam("list_id")
-    public var slug: String? by stringParam("slug")
-    public var ownerScreenName: String? by stringParam("owner_screen_name")
-    public var ownerId: Long? by longParam("owner_id")
-    public var count: Int? by intParam("count")
-    public var cursor: Long? by longParam("cursor")
-    public var includeEntities: Boolean? by booleanParam("include_entities")
-    public var skipStatus: Boolean? by booleanParam("skip_status")
+    var listId: Long? by longParam("list_id")
+    var slug: String? by stringParam("slug")
+    var ownerScreenName: String? by stringParam("owner_screen_name")
+    var ownerId: Long? by longParam("owner_id")
+    var count: Int? by intParam("count")
+    var cursor: Long? by longParam("cursor")
+    var includeEntities: Boolean? by booleanParam("include_entities")
+    var skipStatus: Boolean? by booleanParam("skip_status")
     override val url = "https://api.twitter.com/1.1/lists/subscribers.json"
     override val allowOauthType = OauthType.oauth1 or OauthType.oauth2
     override val isAuthorization = true

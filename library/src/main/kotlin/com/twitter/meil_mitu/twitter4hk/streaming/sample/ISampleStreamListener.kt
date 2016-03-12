@@ -6,6 +6,6 @@ interface ISampleStreamListener<TStatus> {
 
     fun onStatus(status: TStatus)
 
-    fun onDeleteStatus(userId : Long,id:Long)
+    fun onDeleteStatus(userId: Long, id: Long)
 
 }

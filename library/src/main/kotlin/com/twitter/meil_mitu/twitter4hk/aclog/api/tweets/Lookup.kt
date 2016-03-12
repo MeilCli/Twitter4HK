@@ -12,9 +12,9 @@ class Lookup<TAclogStatus>(
         protected val json: IAclogStatusConverter<TAclogStatus>,
         ids: LongArray) : AbsAclogGet<ArrayList<TAclogStatus>>(oauth) {
 
-    public var authorization: Boolean = false
+    var authorization: Boolean = false
     override val isAuthorization = authorization
-    public var ids: LongArray? by longArrayParam("ids")
+    var ids: LongArray? by longArrayParam("ids")
     override val url = "$host/api/tweets/lookup.json"
     override val allowOauthType = OauthType.oauthEcho
 

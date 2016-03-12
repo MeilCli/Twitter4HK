@@ -8,8 +8,6 @@ class ApplicationAPI<TRateLimitResult>(
         oauth: AbsOauth,
         protected val json: IApplicationConverter<TRateLimitResult>) : AbsAPI(oauth) {
 
-    fun rateLimitStatus(): RateLimitStatus<TRateLimitResult> {
-        return RateLimitStatus(oauth, json)
-    }
+    fun rateLimitStatus() = RateLimitStatus(oauth, json)
 
 }

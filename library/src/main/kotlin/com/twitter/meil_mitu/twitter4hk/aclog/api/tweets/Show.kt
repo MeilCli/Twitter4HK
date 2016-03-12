@@ -11,9 +11,9 @@ class Show<TAclogStatus>(
         protected val json: IAclogStatusConverter<TAclogStatus>,
         id: Long) : AbsAclogGet<TAclogStatus>(oauth) {
 
-    public var authorization: Boolean = false
+    var authorization: Boolean = false
     override val isAuthorization = authorization
-    public var id: Long?by longParam("id")
+    var id: Long?by longParam("id")
     override val url = "$host/api/tweets/show.json"
     override val allowOauthType = OauthType.oauthEcho
 

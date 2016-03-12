@@ -12,16 +12,10 @@ class StreamAPI<TDirectMessage, TStatus, TUser, TUserList>(
         protected val json: IStreamConverter<TDirectMessage, TStatus, TUser, TUserList>) :
         AbsAPI(oauth) {
 
-    fun sample(): SampleStream<TStatus> {
-        return SampleStream(oauth, json)
-    }
+    fun sample() = SampleStream(oauth, json)
 
-    fun filter(): FilterStream<TStatus> {
-        return FilterStream(oauth, json)
-    }
+    fun filter() = FilterStream(oauth, json)
 
-    fun user(): UserStream<TDirectMessage, TStatus, TUser, TUserList> {
-        return UserStream(oauth, json)
-    }
+    fun user() = UserStream(oauth, json)
 
 }

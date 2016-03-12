@@ -9,14 +9,6 @@ class MutesAPI<TCursorIDs, TCursorUsers, TUser>(
         oauth: AbsOauth,
         protected val json: IMutesConverter<TCursorIDs, TCursorUsers, TUser>) : AbsAPI(oauth) {
 
-    private val users: UsersAPI<TCursorIDs, TCursorUsers, TUser>
-
-    init {
-        users = UsersAPI(oauth, json)
-    }
-
-    fun users(): UsersAPI<TCursorIDs, TCursorUsers, TUser> {
-        return users
-    }
+    val users = UsersAPI(oauth, json)
 
 }

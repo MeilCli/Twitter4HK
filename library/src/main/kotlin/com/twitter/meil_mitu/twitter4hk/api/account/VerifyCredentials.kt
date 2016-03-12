@@ -11,8 +11,8 @@ class VerifyCredentials<TUser>(
         oauth: AbsOauth,
         protected val json: IUserConverter<TUser>) : AbsGet<ResponseData<TUser>>(oauth) {
 
-    public var includeEntities: Boolean? by booleanParam("include_entities")
-    public var skipStatus: Boolean? by booleanParam("skip_status")
+    var includeEntities: Boolean? by booleanParam("include_entities")
+    var skipStatus: Boolean? by booleanParam("skip_status")
     override val url = "https://api.twitter.com/1.1/account/verify_credentials.json"
     override val allowOauthType = OauthType.oauth1
     override val isAuthorization = true

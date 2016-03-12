@@ -12,9 +12,9 @@ class List<TCursorUsers>(
         protected val json: ICursorUsersConverter<TCursorUsers>) :
         AbsGet<ResponseData<TCursorUsers>>(oauth) {
 
-    public var includeEntities: Boolean? by booleanParam("include_entities")
-    public var skipStatus: Boolean? by booleanParam("skip_status")
-    public var cursor: Long? by longParam("cursor")
+    var includeEntities: Boolean? by booleanParam("include_entities")
+    var skipStatus: Boolean? by booleanParam("skip_status")
+    var cursor: Long? by longParam("cursor")
     override val url = "https://api.twitter.com/1.1/blocks/list.json"
     override val allowOauthType = OauthType.oauth1
     override val isAuthorization = true

@@ -13,12 +13,12 @@ class ReverseGeocode<TPlaceQuery>(
         latitude: String,
         longitude: String) : AbsGet<ResponseData<TPlaceQuery>>(oauth) {
 
-    public var latitude: String? by stringParam("lat")
-    public var longitude: String? by stringParam("long")
-    public var accuracy: String? by stringParam("accuracy")
-    public var granularity: String? by stringParam("granularity")
-    public var maxResults: Int? by intParam("max_results")
-    public var callback: String? by stringParam("callback")
+    var latitude: String? by stringParam("lat")
+    var longitude: String? by stringParam("long")
+    var accuracy: String? by stringParam("accuracy")
+    var granularity: String? by stringParam("granularity")
+    var maxResults: Int? by intParam("max_results")
+    var callback: String? by stringParam("callback")
     override val url = "https://api.twitter.com/1.1/geo/reverse_geocode.json"
     override val allowOauthType = OauthType.oauth1
     override val isAuthorization = true

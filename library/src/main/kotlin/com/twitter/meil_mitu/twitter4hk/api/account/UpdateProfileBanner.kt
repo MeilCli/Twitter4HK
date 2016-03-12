@@ -13,11 +13,11 @@ class UpdateProfileBanner(
         protected val json: IJsonConverter,
         banner: File) : AbsPost<Unit>(oauth) {
 
-    public var banner: File? by fileParam("banner")
-    public var width: Int? by intParam("width")
-    public var height: Int? by intParam("height")
-    public var offsetLeft: Int? by intParam("offset_left")
-    public var offsetTop: Int? by intParam("offset_top")
+    var banner: File? by fileParam("banner")
+    var width: Int? by intParam("width")
+    var height: Int? by intParam("height")
+    var offsetLeft: Int? by intParam("offset_left")
+    var offsetTop: Int? by intParam("offset_top")
     override val url = "https://api.twitter.com/1.1/account/update_profile_banner.json"
     override val allowOauthType = OauthType.oauth1
     override val isAuthorization = true

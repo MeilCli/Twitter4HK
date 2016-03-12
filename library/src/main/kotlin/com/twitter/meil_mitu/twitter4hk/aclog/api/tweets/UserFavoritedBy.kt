@@ -12,17 +12,17 @@ class UserFavoritedBy<TAclogStatus>(
         protected val json: IAclogStatusConverter<TAclogStatus>) :
         AbsAclogGet<ArrayList<TAclogStatus>>(oauth) {
 
-    public var authorization: Boolean = false
+    var authorization: Boolean = false
     override val isAuthorization = authorization
-    public var userId: Long? by longParam("user_id")
-    public var screenName: String? by stringParam("screen_name")
-    public var sourceUserId: Long? by longParam("source_user_id")
-    public var sourceScreenName: String? by stringParam("source_screen_name")
-    public var count: Int? by intParam("count")
-    public var page: Int? by intParam("page")
-    public var sinceId: Long? by longParam("since_id")
-    public var maxId: Long? by longParam("max_id")
-    public var reactions: Int? by intParam("reactions")
+    var userId: Long? by longParam("user_id")
+    var screenName: String? by stringParam("screen_name")
+    var sourceUserId: Long? by longParam("source_user_id")
+    var sourceScreenName: String? by stringParam("source_screen_name")
+    var count: Int? by intParam("count")
+    var page: Int? by intParam("page")
+    var sinceId: Long? by longParam("since_id")
+    var maxId: Long? by longParam("max_id")
+    var reactions: Int? by intParam("reactions")
     override val url = "$host/api/tweets/user_favorited_by.json"
     override val allowOauthType = OauthType.oauthEcho
 

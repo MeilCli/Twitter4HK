@@ -9,11 +9,11 @@ import com.twitter.meil_mitu.twitter4hk.exception.Twitter4HKException
 
 class Place<TTrendResult>(
         oauth: AbsOauth,
-        protected val  json: ITrendResultConverter<TTrendResult>,
+        protected val json: ITrendResultConverter<TTrendResult>,
         id: Int) : AbsGet<ResponseData<TTrendResult>>(oauth) {
 
-    public var id: Int? by intParam("id")
-    public var exclude: String? by stringParam("exclude")
+    var id: Int? by intParam("id")
+    var exclude: String? by stringParam("exclude")
     override val url = "https://api.twitter.com/1.1/trends/place.json"
     override val allowOauthType = OauthType.oauth1 or OauthType.oauth2
     override val isAuthorization = true

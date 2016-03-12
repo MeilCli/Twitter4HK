@@ -12,12 +12,12 @@ class Retweeters<TCursorIDs>(
         protected val json: ICursorIDsConverter<TCursorIDs>,
         id: Long) : AbsGet<ResponseData<TCursorIDs>>(oauth) {
 
-    public var id: Long? by longParam("id")
-    public var cursor: Long? by longParam("cursor")
+    var id: Long? by longParam("id")
+    var cursor: Long? by longParam("cursor")
     /**
      * must not use in JsonConverter for CursorIDs
      */
-    public var stringifyIds: Boolean? by booleanParam("stringify_ids")
+    var stringifyIds: Boolean? by booleanParam("stringify_ids")
     override val url = "https://api.twitter.com/1.1/statuses/retweeters/ids.json"
     override val allowOauthType = OauthType.oauth1 or OauthType.oauth2
     override val isAuthorization = true

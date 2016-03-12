@@ -12,8 +12,8 @@ class Closest<TTrendPlace>(
         protected val json: ITrendPlaceConverter<TTrendPlace>) :
         AbsGet<ResponseList<TTrendPlace>>(oauth) {
 
-    public var latitude: String? by stringParam("lat")
-    public var longitude: String? by stringParam("long")
+    var latitude: String? by stringParam("lat")
+    var longitude: String? by stringParam("long")
     override val url = "https://api.twitter.com/1.1/trends/closest.json"
     override val allowOauthType = OauthType.oauth1 or OauthType.oauth2
     override val isAuthorization = true

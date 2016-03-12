@@ -11,10 +11,10 @@ class Stats<TAclogStats>(
         protected val json: IAclogStatsConverter<TAclogStats>) :
         AbsAclogGet<TAclogStats>(oauth) {
 
-    public var authorization: Boolean = false
+    var authorization: Boolean = false
     override val isAuthorization = authorization
-    public var id: Long? by longParam("id")
-    public var screenName: String? by stringParam("screen_name")
+    var id: Long? by longParam("id")
+    var screenName: String? by stringParam("screen_name")
     override val url = "$host/api/users/stats.json"
     override val allowOauthType = OauthType.oauthEcho
 

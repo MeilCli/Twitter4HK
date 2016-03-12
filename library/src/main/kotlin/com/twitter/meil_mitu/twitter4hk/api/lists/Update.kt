@@ -9,13 +9,13 @@ import com.twitter.meil_mitu.twitter4hk.exception.Twitter4HKException
 class Update<TUserList> : AbsPost<TUserList> {
 
     protected val json: IUserListConverter<TUserList>
-    public var listId: Long? by longParam("list_id")
-    public var slug: String? by stringParam("slug")
-    public var name: String? by stringParam("name")
-    public var mode: String? by stringParam("mode")
-    public var description: String? by stringParam("description")
-    public var ownerScreenName: String? by stringParam("owner_screen_name")
-    public var ownerId: Long? by longParam("owner_id")
+    var listId: Long? by longParam("list_id")
+    var slug: String? by stringParam("slug")
+    var name: String? by stringParam("name")
+    var mode: String? by stringParam("mode")
+    var description: String? by stringParam("description")
+    var ownerScreenName: String? by stringParam("owner_screen_name")
+    var ownerId: Long? by longParam("owner_id")
     override val url = "https://api.twitter.com/1.1/lists/update.json"
     override val allowOauthType = OauthType.oauth1
     override val isAuthorization = true

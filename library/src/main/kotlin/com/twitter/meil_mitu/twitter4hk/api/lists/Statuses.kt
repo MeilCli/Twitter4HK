@@ -10,15 +10,15 @@ import com.twitter.meil_mitu.twitter4hk.exception.Twitter4HKException
 class Statuses<TStatus> : AbsGet<ResponseList<TStatus>> {
 
     protected val json: IStatusConverter<TStatus>
-    public var listId: Long? by longParam("list_id")
-    public var slug: String? by stringParam("slug")
-    public var ownerScreenName: String? by stringParam("owner_screen_name")
-    public var ownerId: Long? by longParam("owner_id")
-    public var sinceId: Long? by longParam("since_id")
-    public var maxId: Long? by longParam("max_id")
-    public var count: Int? by intParam("count")
-    public var includeEntities: Boolean? by booleanParam("include_entities")
-    public var includeRts: Boolean? by booleanParam("include_rts")
+    var listId: Long? by longParam("list_id")
+    var slug: String? by stringParam("slug")
+    var ownerScreenName: String? by stringParam("owner_screen_name")
+    var ownerId: Long? by longParam("owner_id")
+    var sinceId: Long? by longParam("since_id")
+    var maxId: Long? by longParam("max_id")
+    var count: Int? by intParam("count")
+    var includeEntities: Boolean? by booleanParam("include_entities")
+    var includeRts: Boolean? by booleanParam("include_rts")
     override val url = "https://api.twitter.com/1.1/lists/statuses.json"
     override val allowOauthType = OauthType.oauth1 or OauthType.oauth2
     override val isAuthorization = true

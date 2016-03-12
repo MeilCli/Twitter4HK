@@ -20,13 +20,13 @@ class SampleStream<TStatus>(
         AbsGet<Stream>(oauth), IStreamParam {
 
     override var streamListener: IStreamListener? = null
-    public var sampleStreamListener: ISampleStreamListener<TStatus>? = null
+    var sampleStreamListener: ISampleStreamListener<TStatus>? = null
     private val executorService = Executors.newSingleThreadExecutor()
     /**
      * should not use this
      */
-    public var delimited: Boolean? by booleanParam("delimited")
-    public var stallWarnings: Boolean? by booleanParam("stall_warnings")
+    var delimited: Boolean? by booleanParam("delimited")
+    var stallWarnings: Boolean? by booleanParam("stall_warnings")
     override val url = "https://stream.twitter.com/1.1/statuses/sample.json"
     override val allowOauthType = OauthType.oauth1
     override val isAuthorization = true

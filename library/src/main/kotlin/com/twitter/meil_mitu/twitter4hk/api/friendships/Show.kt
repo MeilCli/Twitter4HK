@@ -12,10 +12,10 @@ class Show<TRelationship>(
         protected val json: IRelationshipConverter<TRelationship>) :
         AbsGet<ResponseData<TRelationship>>(oauth) {
 
-    public var sourceId: Long? by longParam("source_id")
-    public var sourceScreenName: String? by stringParam("source_screen_name")
-    public var targetId: Long? by longParam("target_id")
-    public var targetScreenName: String? by stringParam("target_screen_name")
+    var sourceId: Long? by longParam("source_id")
+    var sourceScreenName: String? by stringParam("source_screen_name")
+    var targetId: Long? by longParam("target_id")
+    var targetScreenName: String? by stringParam("target_screen_name")
     override val url = "https://api.twitter.com/1.1/friendships/show.json"
     override val allowOauthType = OauthType.oauth1 or OauthType.oauth2
     override val isAuthorization = true

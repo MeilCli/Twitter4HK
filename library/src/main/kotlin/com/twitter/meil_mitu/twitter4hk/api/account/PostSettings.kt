@@ -12,12 +12,12 @@ class PostSettings<TSetting>(
         oauth: AbsOauth,
         protected val json: ISettingConverter<TSetting>) : AbsPost<TSetting>(oauth) {
 
-    public var trendLocationWoeid: Int? by intParam("trend_location_woeid")
-    public var sleepTimeEnabled: Boolean? by booleanParam("sleep_time_enabled")
-    public var startSleepTime: Int? by intParam("start_sleep_time")
-    public var endSleepTime: Int? by intParam("end_sleep_time")
-    public var timeZone: String? by stringParam("time_zone")
-    public var lang: String? by stringParam("lang")
+    var trendLocationWoeid: Int? by intParam("trend_location_woeid")
+    var sleepTimeEnabled: Boolean? by booleanParam("sleep_time_enabled")
+    var startSleepTime: Int? by intParam("start_sleep_time")
+    var endSleepTime: Int? by intParam("end_sleep_time")
+    var timeZone: String? by stringParam("time_zone")
+    var lang: String? by stringParam("lang")
     override val url = "https://api.twitter.com/1.1/account/settings.json"
     override val allowOauthType = OauthType.oauth1
     override val isAuthorization = true

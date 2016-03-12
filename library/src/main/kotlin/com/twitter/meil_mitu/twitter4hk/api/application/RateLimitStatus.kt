@@ -12,7 +12,7 @@ class RateLimitStatus<TRateLimitResult>(
         protected val json: IRateLimitResultConverter<TRateLimitResult>) :
         AbsGet<ResponseData<TRateLimitResult>>(oauth) {
 
-    public var resources: Array<String>? by stringArrayParam("resources")
+    var resources: Array<String>? by stringArrayParam("resources")
     override val url = "https://api.twitter.com/1.1/application/rate_limit_status.json"
     override val allowOauthType = OauthType.oauth1 or OauthType.oauth2
     override val isAuthorization = true

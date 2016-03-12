@@ -12,7 +12,7 @@ class Ids<TCursorIDs>(
         protected val json: ICursorIDsConverter<TCursorIDs>) :
         AbsGet<ResponseData<TCursorIDs>>(oauth) {
 
-    public var cursor: Long? by longParam("cursor")
+    var cursor: Long? by longParam("cursor")
     override val url = "https://api.twitter.com/1.1/mutes/users/ids.json"
     override val allowOauthType = OauthType.oauth1
     override val isAuthorization = true

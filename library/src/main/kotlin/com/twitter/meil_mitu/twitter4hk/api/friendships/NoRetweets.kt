@@ -14,7 +14,7 @@ class NoRetweets<TIDs>(
     /**
      * must not use in JsonConverter for CursorIDs
      */
-    public var stringifyIds: Boolean? by booleanParam("stringify_ids")
+    var stringifyIds: Boolean? by booleanParam("stringify_ids")
     override val url = "https://api.twitter.com/1.1/friendships/no_retweets/ids.json"
     override val allowOauthType = OauthType.oauth1
     override val isAuthorization = true

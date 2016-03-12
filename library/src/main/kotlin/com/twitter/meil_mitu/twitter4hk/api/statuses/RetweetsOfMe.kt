@@ -12,14 +12,14 @@ class RetweetsOfMe<TStatus>(
         protected val json: IStatusConverter<TStatus>) :
         AbsGet<ResponseList<TStatus>>(oauth) {
 
-    public var sinceId: Long? by longParam("since_id")
-    public var maxId: Long? by longParam("max_id")
+    var sinceId: Long? by longParam("since_id")
+    var maxId: Long? by longParam("max_id")
     /**
      * must not use in JsonConverter for User
      */
-    public var trimUser: Boolean? by booleanParam("trim_user")
-    public var includeEntities: Boolean? by booleanParam("include_entities")
-    public var includeUserEntities: Boolean? by booleanParam("include_user_entities")
+    var trimUser: Boolean? by booleanParam("trim_user")
+    var includeEntities: Boolean? by booleanParam("include_entities")
+    var includeUserEntities: Boolean? by booleanParam("include_user_entities")
     override val url = "https://api.twitter.com/1.1/statuses/retweets_of_me.json"
     override val allowOauthType = OauthType.oauth1
     override val isAuthorization = true

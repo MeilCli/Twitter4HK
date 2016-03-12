@@ -9,20 +9,12 @@ class UsersAPI<TCursorIDs, TCursorUsers, TUser>(
         protected val json: IMutesUsersConverter<TCursorIDs, TCursorUsers, TUser>) :
         AbsAPI(oauth) {
 
-    fun create(): Create<TUser> {
-        return Create(oauth, json)
-    }
+    fun create() = Create(oauth, json)
 
-    fun destroy(): Destroy<TUser> {
-        return Destroy(oauth, json)
-    }
+    fun destroy() = Destroy(oauth, json)
 
-    fun ids(): Ids<TCursorIDs> {
-        return Ids(oauth, json)
-    }
+    fun ids() = Ids(oauth, json)
 
-    fun list(): List<TCursorUsers> {
-        return List(oauth, json)
-    }
+    fun list() = List(oauth, json)
 
 }

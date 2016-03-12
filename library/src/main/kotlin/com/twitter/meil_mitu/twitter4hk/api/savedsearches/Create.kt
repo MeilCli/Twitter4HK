@@ -11,7 +11,7 @@ class Create<TSavedSearch>(
         protected val json: ISavedSearchConverter<TSavedSearch>,
         query: String) : AbsPost<TSavedSearch>(oauth) {
 
-    public var query: String? by stringParam("query")
+    var query: String? by stringParam("query")
     override val url = "https://api.twitter.com/1.1/saved_searches/create.json"
     override val allowOauthType = OauthType.oauth1
     override val isAuthorization = true

@@ -12,7 +12,7 @@ class Upload<TMedia>(
         protected val json: IMediaConverter<TMedia>,
         media: File) : AbsPost<TMedia>(oauth) {
 
-    public var media: File? by fileParam("media")
+    var media: File? by fileParam("media")
     override val url = "https://upload.twitter.com/1.1/media/upload.json"
     override val allowOauthType = OauthType.oauth1
     override val isAuthorization = true

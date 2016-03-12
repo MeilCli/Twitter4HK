@@ -12,10 +12,10 @@ class Get<TDirectMessage>(
         protected val json: IDirectMessageConverter<TDirectMessage>) :
         AbsGet<ResponseList<TDirectMessage>>(oauth) {
 
-    public var sinceId: Long? by longParam("since_id")
-    public var maxId: Long? by longParam("max_id")
-    public var count: Int? by intParam("count")
-    public var includeEntities: Boolean? by booleanParam("include_entities")
+    var sinceId: Long? by longParam("since_id")
+    var maxId: Long? by longParam("max_id")
+    var count: Int? by intParam("count")
+    var includeEntities: Boolean? by booleanParam("include_entities")
     /**
      * must not use in JsonConverter for DirectMessage
      */

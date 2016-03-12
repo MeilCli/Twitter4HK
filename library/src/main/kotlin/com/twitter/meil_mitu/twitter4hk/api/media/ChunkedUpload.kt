@@ -12,21 +12,21 @@ class ChunkedUpload<TMedia>(
         oauth: AbsOauth,
         protected val json: IMediaConverter<TMedia>,
         media: File,
-        mediaType:String) : AbsPost<TMedia>(oauth) {
+        mediaType: String) : AbsPost<TMedia>(oauth) {
 
-    public var media: File
-    public var mediaType: String
+    var media: File
+    var mediaType: String
     internal val initCommand = "INIT"
     internal val appendCommand = "APPEND"
-    internal val finalizeCommand="FINALIZE"
-    internal val maxSeparateByte = 5*1024*1024
+    internal val finalizeCommand = "FINALIZE"
+    internal val maxSeparateByte = 5 * 1024 * 1024
     override val url = "https://upload.twitter.com/1.1/media/upload.json"
     override val allowOauthType = OauthType.oauth1
     override val isAuthorization = true
 
     init {
         this.media = media
-        this.mediaType=mediaType
+        this.mediaType = mediaType
     }
 
     @Throws(Twitter4HKException::class)
@@ -40,17 +40,17 @@ class ChunkedUpload<TMedia>(
         paramMap.remove("total_bytes")
 
         val totalByte = media.length()
-        val separateCount = totalByte/maxSeparateByte + (if(totalByte%maxSeparateByte>0) 1 else 0)
+        val separateCount = totalByte / maxSeparateByte + (if (totalByte % maxSeparateByte > 0) 1 else 0)
         paramMap["command"] = appendCommand
         paramMap["media_id"] = initResult.mediaId.toString()
-        fileMap["media"]=media
-        for(i in 0..separateCount-1){
+        fileMap["media"] = media
+        for (i in 0..separateCount - 1) {
             paramMap["segment_index"] = i.toString()
-            val startByte = i*maxSeparateByte
-            val size = if((i+1)*maxSeparateByte<=totalByte)
+            val startByte = i * maxSeparateByte
+            val size = if ((i + 1) * maxSeparateByte <= totalByte)
                 maxSeparateByte.toInt() else
-                (totalByte-startByte).toInt()
-            separateFileMap["media"] = Pair(startByte,startByte+size)
+                (totalByte - startByte).toInt()
+            separateFileMap["media"] = Pair(startByte, startByte + size)
             json.toString(oauth.post(this).body())
         }
         paramMap.remove("command")

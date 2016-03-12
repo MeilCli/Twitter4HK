@@ -11,8 +11,8 @@ class Destroy<TDirectMessage>(
         protected val json: IDirectMessageConverter<TDirectMessage>,
         id: Long) : AbsPost<TDirectMessage>(oauth) {
 
-    public var id: Long? by longParam("id")
-    public var includeEntities: Boolean? by booleanParam("include_entities")
+    var id: Long? by longParam("id")
+    var includeEntities: Boolean? by booleanParam("include_entities")
     override val url = "https://api.twitter.com/1.1/direct_messages/destroy.json"
     override val allowOauthType = OauthType.oauth1
     override val isAuthorization = true

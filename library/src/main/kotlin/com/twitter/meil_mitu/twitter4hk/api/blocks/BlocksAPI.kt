@@ -9,20 +9,12 @@ class BlocksAPI<TCursorIDs, TCursorUsers, TUser>(
         protected val json: IBlocksConverter<TCursorIDs, TCursorUsers, TUser>) :
         AbsAPI(oauth) {
 
-    fun list(): List<TCursorUsers> {
-        return List(oauth, json)
-    }
+    fun list() = List(oauth, json)
 
-    fun ids(): Ids<TCursorIDs> {
-        return Ids(oauth, json)
-    }
+    fun ids() = Ids(oauth, json)
 
-    fun create(): Create<TUser> {
-        return Create(oauth, json)
-    }
+    fun create() = Create(oauth, json)
 
-    fun destroy(): Destroy<TUser> {
-        return Destroy(oauth, json)
-    }
+    fun destroy() = Destroy(oauth, json)
 
 }
