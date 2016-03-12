@@ -6,7 +6,6 @@ import com.twitter.meil_mitu.twitter4hk.util.JsonUtils
 import com.twitter.meil_mitu.twitter4hk.util.JsonUtils.getInt
 import com.twitter.meil_mitu.twitter4hk.util.JsonUtils.getJSONObject
 import com.twitter.meil_mitu.twitter4hk.util.JsonUtils.getString
-import com.twitter.meil_mitu.twitter4hk.util.JsonUtils.toJSONObject
 import com.twitter.meil_mitu.twitter4hk.util.Utils
 import org.json.JSONArray
 import org.json.JSONException
@@ -107,24 +106,20 @@ abstract class AbsOauth protected constructor(
             val files = param.fileParam
             for (e in files) {
                 val f = e.value
-                val type: MediaType
-                if (f.name.endsWith(".png")) {
-                    type = mediaPng
-                } else if (f.name.endsWith(".gif")) {
-                    type = mediaGif
-                } else if (f.name.endsWith(".mp4")) {
-                    type = mediaMp4
-                } else {
-                    type = mediaJpeg
+                val type = when {
+                    f.name.endsWith(".png") -> mediaPng
+                    f.name.endsWith(".gif") -> mediaGif
+                    f.name.endsWith(".mp4") -> mediaMp4
+                    else -> mediaJpeg
                 }
                 if (param.separateFileMap.containsKey(e.key)) {
                     val startByte = param.separateFileMap[e.key]!!.first
                     val endByte = param.separateFileMap[e.key]!!.second
-                    val size = (endByte-startByte).toInt()
+                    val size = (endByte - startByte).toInt()
                     multipartBuilder.addFormDataPart(
                             Utils.urlEncode(e.key),
                             Utils.urlEncode(f.name),
-                            RequestBody.create(type, Utils.readByte(f,size,startByte)))
+                            RequestBody.create(type, Utils.readByte(f, size, startByte)))
                 } else {
                     multipartBuilder.addFormDataPart(
                             Utils.urlEncode(e.key),
@@ -141,7 +136,7 @@ abstract class AbsOauth protected constructor(
     @Throws(Twitter4HKException::class)
     protected fun checkError(res: Response) {
         if (res.isSuccessful == false) {
-            var body :String? = null
+            var body: String? = null
             try {
                 body = res.body().string()
                 val obj = JSONObject(body)
@@ -172,9 +167,9 @@ abstract class AbsOauth protected constructor(
             } catch (e: IOException) {
                 e.printStackTrace()
                 throw Twitter4HKException(e.message)
-            }catch(e:JSONException){
+            } catch(e: JSONException) {
                 e.printStackTrace()
-                throw Twitter4HKException(body?:e.message)
+                throw Twitter4HKException(body ?: e.message)
             }
 
         }

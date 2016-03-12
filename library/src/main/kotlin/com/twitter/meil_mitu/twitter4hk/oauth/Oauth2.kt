@@ -54,9 +54,9 @@ class Oauth2 : AbsOauth {
         }
         builder.get()
         try {
-            val res = call(builder.build())
-            checkError(res)
-            return res
+            return call(builder.build()).apply {
+                checkError(this)
+            }
         } catch (e: IOException) {
             e.printStackTrace()
             throw Twitter4HKException(e.message)
@@ -67,7 +67,6 @@ class Oauth2 : AbsOauth {
             }
             throw e
         }
-
     }
 
     @Throws(Twitter4HKException::class)
@@ -88,14 +87,13 @@ class Oauth2 : AbsOauth {
         }
         builder.post(toBody(param))
         try {
-            val res = call(builder.build())
-            checkError(res)
-            return res
+            return call(builder.build()).apply {
+                checkError(this)
+            }
         } catch (e: IOException) {
             e.printStackTrace()
             throw Twitter4HKException(e.message)
         }
-
     }
 
     protected fun createAuthorization(): String {

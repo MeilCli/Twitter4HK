@@ -70,18 +70,16 @@ open class Oauth : AbsOauth {
                 e.printStackTrace()
                 throw Twitter4HKException(e.message)
             }
-
         }
         builder.get()
         try {
-            val res = call(builder.build())
-            checkError(res)
-            return res
+            return call(builder.build()).apply {
+                checkError(this)
+            }
         } catch (e: IOException) {
             e.printStackTrace()
             throw Twitter4HKException(e.message)
         }
-
     }
 
     @Throws(Twitter4HKException::class)
@@ -101,7 +99,6 @@ open class Oauth : AbsOauth {
                 e.printStackTrace()
                 throw Twitter4HKException(e.message)
             }
-
         }
         if ((param.allowOauthType and OauthType.oauth1RequestToken) == 0) {
             builder.post(toBody(param))
@@ -109,14 +106,13 @@ open class Oauth : AbsOauth {
             builder.post(RequestBody.create(AbsOauth.mediaText, ""))
         }
         try {
-            val res = call(builder.build())
-            checkError(res)
-            return res
+            return call(builder.build()).apply {
+                checkError(this)
+            }
         } catch (e: IOException) {
             e.printStackTrace()
             throw Twitter4HKException(e.message)
         }
-
     }
 
     protected fun makeOauthNonce(): String {

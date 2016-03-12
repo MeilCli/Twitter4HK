@@ -53,7 +53,6 @@ class OauthEcho : Oauth {
         }
     }
 
-
     override fun okhttpSetting(config: Twitter4HKConfig) {
         super.okhttpSetting(config)
         //for aclog
@@ -81,18 +80,16 @@ class OauthEcho : Oauth {
                 e.printStackTrace()
                 throw Twitter4HKException(e.message)
             }
-
         }
         builder.get()
         try {
-            val res = call(builder.build())
-            this.check!!.checkError(res)
-            return res
+            return call(builder.build()).apply {
+                check!!.checkError(this)
+            }
         } catch (e: IOException) {
             e.printStackTrace()
             throw Twitter4HKException(e.message)
         }
-
     }
 
     @Throws(Twitter4HKException::class)
@@ -113,18 +110,16 @@ class OauthEcho : Oauth {
                 e.printStackTrace()
                 throw Twitter4HKException(e.message)
             }
-
         }
         builder.post(toBody(param))
         try {
-            val res = call(builder.build())
-            this.check!!.checkError(res)
-            return res
+            return call(builder.build()).apply {
+                check!!.checkError(this)
+            }
         } catch (e: IOException) {
             e.printStackTrace()
             throw Twitter4HKException(e.message)
         }
-
     }
 
     companion object {
