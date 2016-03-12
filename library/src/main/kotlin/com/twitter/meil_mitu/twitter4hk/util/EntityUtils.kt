@@ -124,64 +124,50 @@ object EntityUtils {
     }
 
     private fun setEntity(list: ArrayList<Entity>, data: Array<URLEntity>?) {
-        if (data == null || data.size == 0) {
-            return
-        }
-        for (e in data) {
+        data?.forEach {
+            e ->
             list.add(Entity(EntityType.URL, e.displayUrl, e.start, e.end))
         }
     }
 
     private fun setEntity(list: ArrayList<Entity>, data: Array<MediaEntity>?) {
-        if (data == null || data.size == 0) {
-            return
-        }
-        for (e in data) {
+        data?.forEach {
+            e ->
             list.add(Entity(EntityType.URL, e.displayUrl, e.start, e.end))
         }
     }
 
     private fun setEntity(list: ArrayList<Entity>, data: Array<UserMentionEntity>?) {
-        if (data == null || data.size == 0) {
-            return
-        }
-        for (e in data) {
+        data?.forEach {
+            e ->
             list.add(Entity(EntityType.ID, e.screenName, e.start, e.end))
         }
     }
 
     private fun setEntity(list: ArrayList<Entity>, data: Array<HashtagEntity>?) {
-        if (data == null || data.size == 0) {
-            return
-        }
-        for (e in data) {
+        data?.forEach {
+            e ->
             list.add(Entity(EntityType.TAG, e.text, e.start, e.end))
         }
     }
 
     private fun setEntity(list: ArrayList<Entity>, data: Array<SymbolEntity>?) {
-        if (data == null || data.size == 0) {
-            return
-        }
-        for (e in data) {
+        data?.forEach {
+            e ->
             list.add(Entity(EntityType.SYMBOL, e.text, e.start, e.end))
         }
     }
 
     private fun setEntity2(list: ArrayList<Entity>, data: Array<URLEntity>?) {
-        if (data == null || data.size == 0) {
-            return
-        }
-        for (e in data) {
+        data?.forEach {
+            e ->
             list.add(Entity(EntityType.URL, e.expandedUrl, e.start, e.end))
         }
     }
 
     private fun setEntity2(list: ArrayList<Entity>, data: Array<MediaEntity>?) {
-        if (data == null || data.size == 0) {
-            return
-        }
-        for (e in data) {
+        data?.forEach {
+            e ->
             list.add(Entity(EntityType.URL, e.expandedUrl, e.start, e.end))
         }
     }

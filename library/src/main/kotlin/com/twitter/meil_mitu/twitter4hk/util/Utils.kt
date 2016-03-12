@@ -17,12 +17,10 @@ object Utils {
             val encoded = URLEncoder.encode(string, "UTF-8")
             val sb = StringBuilder(encoded.length)
             for (c in encoded.toCharArray()) {
-                if (c == '+') {
-                    sb.append("%20")
-                } else if (c == '*') {
-                    sb.append("%2A")
-                } else {
-                    sb.append(c)
+                when (c) {
+                    '+' -> sb.append("%20")
+                    '*' -> sb.append("%2A")
+                    else -> sb.append(c)
                 }
             }
             return sb.toString()
@@ -64,8 +62,7 @@ object Utils {
 
     fun replaceLine(s: String): String {
         val sb = StringBuilder()
-        for (i in 0..s.length - 1) {
-            val c = s[i]
+        for (c in s.toCharArray()) {
             if (c != '\n') {
                 sb.append(c)
             }
@@ -80,15 +77,15 @@ object Utils {
     }
 
     @Throws(Twitter4HKException::class)
-    fun readByte(file : File, size:Int,off:Long):ByteArray{
+    fun readByte(file: File, size: Int, off: Long): ByteArray {
         val input = FileInputStream(file)
         val result = ByteArray(size)
         try {
             input.skip(off)
             input.read(result)
-        }catch (e : Exception){
+        } catch (e: Exception) {
             throw Twitter4HKException(e.message)
-        }finally{
+        } finally {
             input.close()
         }
         return result
