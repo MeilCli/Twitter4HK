@@ -1,8 +1,7 @@
-# Twitter4Holo
+# Twitter4HK
 Twitter Oauth Library for Android 4.0.3 and upper  
 please debug and advice 
 
-* response Objects implements Parcelable without **Support class
 * if you want to know Objects, you shall see [data package](https://github.com/MeilCli/Twitter4HK/tree/master/library/src/main/kotlin/com/twitter/meil_mitu/twitter4hk/data)
 * Objects is not full
 * if you want to use full Objects, you shall make Data class and Converter
@@ -42,20 +41,20 @@ please debug and advice
 #### replace API namespace
 *if this endpoint is added another endpoints, may change namespace*
 
-* GET statuses/retweeters/ids → statuses.Retweeters → ??
-* GET friendships/no_retweets/ids → friendships.NoRetweets → ??
+* GET statuses/retweeters/ids → statuses.retweeters → ??
+* GET friendships/no_retweets/ids → friendships.noRetweets → ??
 
 *endpoints escape, so change namespace*
 
-* GET direct_messages → directmessages.Get
-* POST direct_messages/new → directmessages.PostNew
-* GET account/settings → account.GetSettings
-* POST account/settings → account.PostSettings
-* GET users/suggestions/:slug → suggestions.Get
-* GET users/suggestions → suggestions.List
-* GET users/suggestions/:slug/members → suggestions.Members
-* GET lists/subscribers → lists.subscribers.Get
-* GET lists/members → lists.members.Get
+* GET direct_messages → directmessages.get
+* POST direct_messages/new → directmessages.postNew
+* GET account/settings → account.getSettings
+* POST account/settings → account.postSettings
+* GET users/suggestions/:slug → suggestions.get
+* GET users/suggestions → suggestions.list
+* GET users/suggestions/:slug/members → suggestions.members
+* GET lists/subscribers → lists.subscribers.get
+* GET lists/members → lists.members.get
 
 ライセンス
 ----------
