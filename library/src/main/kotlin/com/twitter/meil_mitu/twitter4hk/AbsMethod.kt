@@ -1,7 +1,9 @@
 package com.twitter.meil_mitu.twitter4hk
 
 import com.twitter.meil_mitu.twitter4hk.exception.Twitter4HKException
-import com.twitter.meil_mitu.twitter4hk.util.Utils
+import com.twitter.meil_mitu.twitter4hk.util.toArray
+import com.twitter.meil_mitu.twitter4hk.util.toLongArray
+import com.twitter.meil_mitu.twitter4hk.util.toString
 import java.util.*
 
 abstract class AbsMethod<T> {
@@ -19,7 +21,7 @@ abstract class AbsMethod<T> {
 
     protected fun stringArrayParam(key: String)
             = Param<AbsMethod<T>, Array<String>, String>(paramMap, key,
-            { x -> Utils.toString(x) }, { x -> Utils.toArray(x) })
+            { x -> toString(x) }, { x -> toArray(x) })
 
     protected fun booleanParam(key: String)
             = Param<AbsMethod<T>, Boolean, String>(paramMap, key,
@@ -35,7 +37,7 @@ abstract class AbsMethod<T> {
 
     protected fun longArrayParam(key: String)
             = Param<AbsMethod<T>, LongArray, String>(paramMap, key,
-            { x -> Utils.toString(x) }, { x -> Utils.toLongArray(x) })
+            { x -> toString(x) }, { x -> toLongArray(x) })
 
     protected fun floatParam(key: String)
             = Param<AbsMethod<T>, Float, String>(paramMap, key,
