@@ -91,4 +91,14 @@ object Utils {
         return result
     }
 
+    @Throws(Twitter4HKException::class)
+    fun <T> tryAndThrow(f: () -> T): T {
+        return try {
+            f()
+        } catch(e: Exception) {
+            e.printStackTrace()
+            throw Twitter4HKException(e.message)
+        }
+    }
+
 }
