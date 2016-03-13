@@ -9,8 +9,9 @@ import com.twitter.meil_mitu.twitter4hk.api.oauth2.Token
 import com.twitter.meil_mitu.twitter4hk.converter.TwitterConverter
 import com.twitter.meil_mitu.twitter4hk.exception.IncorrectException
 import com.twitter.meil_mitu.twitter4hk.exception.Twitter4HKException
-import com.twitter.meil_mitu.twitter4hk.util.Utils
-import java.io.IOException
+import com.twitter.meil_mitu.twitter4hk.util.base64Encode
+import com.twitter.meil_mitu.twitter4hk.util.tryAndThrow
+import com.twitter.meil_mitu.twitter4hk.util.urlEncode
 
 class Oauth2 : AbsOauth {
 
@@ -54,12 +55,9 @@ class Oauth2 : AbsOauth {
         }
         builder.get()
         try {
-            return call(builder.build()).apply {
+            return tryAndThrow { call(builder.build()) }.apply {
                 checkError(this)
             }
-        } catch (e: IOException) {
-            e.printStackTrace()
-            throw Twitter4HKException(e.message)
         } catch (e: Twitter4HKException) {
             if (e.errorCode == 89) {
                 InvalidateToken(this, TwitterConverter.getDefaultConverter()).call()
@@ -86,20 +84,15 @@ class Oauth2 : AbsOauth {
             }
         }
         builder.post(toBody(param))
-        try {
-            return call(builder.build()).apply {
-                checkError(this)
-            }
-        } catch (e: IOException) {
-            e.printStackTrace()
-            throw Twitter4HKException(e.message)
+        return tryAndThrow { call(builder.build()) }.apply {
+            checkError(this)
         }
     }
 
     protected fun createAuthorization(): String {
-        val encodedConsumerKey = Utils.urlEncode(consumerKey!!)
-        val encodedConsumerSecret = Utils.urlEncode(consumerSecret!!)
+        val encodedConsumerKey = urlEncode(consumerKey!!)
+        val encodedConsumerSecret = urlEncode(consumerSecret!!)
         val bearer = "$encodedConsumerKey:$encodedConsumerSecret"
-        return Utils.base64Encode(bearer.toByteArray())
+        return base64Encode(bearer.toByteArray())
     }
 }

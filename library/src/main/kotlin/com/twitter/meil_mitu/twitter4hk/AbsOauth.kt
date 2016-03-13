@@ -6,7 +6,8 @@ import com.twitter.meil_mitu.twitter4hk.util.JsonUtils
 import com.twitter.meil_mitu.twitter4hk.util.JsonUtils.getInt
 import com.twitter.meil_mitu.twitter4hk.util.JsonUtils.getJSONObject
 import com.twitter.meil_mitu.twitter4hk.util.JsonUtils.getString
-import com.twitter.meil_mitu.twitter4hk.util.Utils
+import com.twitter.meil_mitu.twitter4hk.util.readByte
+import com.twitter.meil_mitu.twitter4hk.util.urlEncode
 import org.json.JSONArray
 import org.json.JSONException
 import org.json.JSONObject
@@ -75,7 +76,7 @@ abstract class AbsOauth protected constructor(
         for (e in param.param) {
             builder.append(e.key)
             builder.append('=')
-            builder.append(Utils.urlEncode(e.value))
+            builder.append(urlEncode(e.value))
             builder.append('&')
         }
         builder.deleteCharAt(builder.length - 1)
@@ -88,9 +89,9 @@ abstract class AbsOauth protected constructor(
         if (param.fileSize == 0) {
             val builder = StringBuilder()
             for (e in param.param) {
-                builder.append(Utils.urlEncode(e.key))
+                builder.append(urlEncode(e.key))
                 builder.append('=')
-                builder.append(Utils.urlEncode(e.value))
+                builder.append(urlEncode(e.value))
                 builder.append('&')
             }
             if (builder.length > 0) {
@@ -101,7 +102,7 @@ abstract class AbsOauth protected constructor(
             val multipartBuilder = MultipartBuilder()
             multipartBuilder.type(MultipartBuilder.FORM)
             for (e in param.param) {
-                multipartBuilder.addFormDataPart(e.key, Utils.urlEncode(e.value))
+                multipartBuilder.addFormDataPart(e.key, urlEncode(e.value))
             }
             val files = param.fileParam
             for (e in files) {
@@ -117,13 +118,13 @@ abstract class AbsOauth protected constructor(
                     val endByte = param.separateFileMap[e.key]!!.second
                     val size = (endByte - startByte).toInt()
                     multipartBuilder.addFormDataPart(
-                            Utils.urlEncode(e.key),
-                            Utils.urlEncode(f.name),
-                            RequestBody.create(type, Utils.readByte(f, size, startByte)))
+                            urlEncode(e.key),
+                            urlEncode(f.name),
+                            RequestBody.create(type, readByte(f, size, startByte)))
                 } else {
                     multipartBuilder.addFormDataPart(
-                            Utils.urlEncode(e.key),
-                            Utils.urlEncode(f.name),
+                            urlEncode(e.key),
+                            urlEncode(f.name),
                             RequestBody.create(type, f))
                 }
             }
@@ -171,7 +172,6 @@ abstract class AbsOauth protected constructor(
                 e.printStackTrace()
                 throw Twitter4HKException(body ?: e.message)
             }
-
         }
     }
 

@@ -11,7 +11,7 @@ import com.twitter.meil_mitu.twitter4hk.converter.TwitterConverter
 import com.twitter.meil_mitu.twitter4hk.data.User
 import com.twitter.meil_mitu.twitter4hk.exception.IncorrectException
 import com.twitter.meil_mitu.twitter4hk.exception.Twitter4HKException
-import java.io.IOException
+import com.twitter.meil_mitu.twitter4hk.util.tryAndThrow
 import java.net.CookieManager
 
 class OauthEcho : Oauth {
@@ -72,23 +72,14 @@ class OauthEcho : Oauth {
         builder.header("User-Agent", config.userAgent)
         if (param.isAuthorization && consumerKey != null &&
                 consumerSecret != null && accessToken != null && accessTokenSecret != null) {
-            try {
+            tryAndThrow {
                 builder.addHeader("X-Auth-Service-Provider", verify!!.url)
-                builder.addHeader("X-Verify-Credentials-Authorization",
-                        "OAuth ${createAuthorization(verify!!, false)}")
-            } catch (e: Exception) {
-                e.printStackTrace()
-                throw Twitter4HKException(e.message)
+                builder.addHeader("X-Verify-Credentials-Authorization", "OAuth ${createAuthorization(verify!!, false)}")
             }
         }
         builder.get()
-        try {
-            return call(builder.build()).apply {
-                check!!.checkError(this)
-            }
-        } catch (e: IOException) {
-            e.printStackTrace()
-            throw Twitter4HKException(e.message)
+        return tryAndThrow { call(builder.build()) }.apply {
+            check!!.checkError(this)
         }
     }
 
@@ -102,24 +93,16 @@ class OauthEcho : Oauth {
         builder.header("User-Agent", config.userAgent)
         if (param.isAuthorization && consumerKey != null &&
                 consumerSecret != null && accessToken != null && accessTokenSecret != null) {
-            try {
+            tryAndThrow {
                 builder.addHeader("X-Auth-Service-Provider", verify!!.url)
-                builder.addHeader("X-Verify-Credentials-Authorization",
-                        "OAuth ${createAuthorization(verify!!, false)}")
-            } catch (e: Exception) {
-                e.printStackTrace()
-                throw Twitter4HKException(e.message)
+                builder.addHeader("X-Verify-Credentials-Authorization", "OAuth ${createAuthorization(verify!!, false)}")
             }
         }
         builder.post(toBody(param))
-        try {
-            return call(builder.build()).apply {
-                check!!.checkError(this)
-            }
-        } catch (e: IOException) {
-            e.printStackTrace()
-            throw Twitter4HKException(e.message)
+        return tryAndThrow { call(builder.build()) }.apply {
+            check!!.checkError(this)
         }
+
     }
 
     companion object {

@@ -7,8 +7,9 @@ import com.squareup.okhttp.Response
 import com.twitter.meil_mitu.twitter4hk.*
 import com.twitter.meil_mitu.twitter4hk.exception.IncorrectException
 import com.twitter.meil_mitu.twitter4hk.exception.Twitter4HKException
-import com.twitter.meil_mitu.twitter4hk.util.Utils
-import java.io.IOException
+import com.twitter.meil_mitu.twitter4hk.util.base64Encode
+import com.twitter.meil_mitu.twitter4hk.util.tryAndThrow
+import com.twitter.meil_mitu.twitter4hk.util.urlEncode
 import java.util.*
 import javax.crypto.Mac
 import javax.crypto.spec.SecretKeySpec
@@ -64,22 +65,14 @@ open class Oauth : AbsOauth {
         builder.url(toUrl(param))
         builder.header("User-Agent", config.userAgent)
         if (param.isAuthorization) {
-            try {
+            tryAndThrow {
                 builder.addHeader("Authorization", "OAuth ${createAuthorization(param, false)}")
-            } catch (e: Exception) {
-                e.printStackTrace()
-                throw Twitter4HKException(e.message)
             }
         }
         builder.get()
-        try {
-            return call(builder.build()).apply {
+        return tryAndThrow { call(builder.build()) }.apply {
                 checkError(this)
             }
-        } catch (e: IOException) {
-            e.printStackTrace()
-            throw Twitter4HKException(e.message)
-        }
     }
 
     @Throws(Twitter4HKException::class)
@@ -92,12 +85,8 @@ open class Oauth : AbsOauth {
         builder.url(param.url)
         builder.header("User-Agent", config.userAgent)
         if (param.isAuthorization) {
-            try {
-                builder.addHeader("Authorization",
-                        "OAuth ${createAuthorization(param, param.fileSize > 0)}")
-            } catch (e: Exception) {
-                e.printStackTrace()
-                throw Twitter4HKException(e.message)
+            tryAndThrow {
+                builder.addHeader("Authorization", "OAuth ${createAuthorization(param, param.fileSize > 0)}")
             }
         }
         if ((param.allowOauthType and OauthType.oauth1RequestToken) == 0) {
@@ -105,14 +94,9 @@ open class Oauth : AbsOauth {
         } else {
             builder.post(RequestBody.create(AbsOauth.mediaText, ""))
         }
-        try {
-            return call(builder.build()).apply {
+        return tryAndThrow { call(builder.build()) }.apply {
                 checkError(this)
             }
-        } catch (e: IOException) {
-            e.printStackTrace()
-            throw Twitter4HKException(e.message)
-        }
     }
 
     protected fun makeOauthNonce(): String {
@@ -158,10 +142,10 @@ open class Oauth : AbsOauth {
                 baseValue.append(',')
                 baseValue.append(' ')
             }
-            baseValue.append(Utils.urlEncode(e.key))
+            baseValue.append(urlEncode(e.key))
             baseValue.append('=')
             baseValue.append('"')
-            baseValue.append(Utils.urlEncode(e.value))
+            baseValue.append(urlEncode(e.value))
             baseValue.append('"')
         }
         val baseString = baseValue.toString()
@@ -197,19 +181,19 @@ open class Oauth : AbsOauth {
             if (baseValue.length > 0) {
                 baseValue.append('&')
             }
-            baseValue.append(Utils.urlEncode(e.key))
+            baseValue.append(urlEncode(e.key))
             baseValue.append('=')
-            baseValue.append(Utils.urlEncode(e.value))
+            baseValue.append(urlEncode(e.value))
         }
-        var baseString = "${method.method}&${Utils.urlEncode(method.url)}&" +
-                "${Utils.urlEncode(baseValue.toString())}"
-        val keyText = "${Utils.urlEncode(consumerSecret!!)}&" +
-                (if (accessTokenSecret == null) "" else Utils.urlEncode(accessTokenSecret!!))
+        var baseString = "${method.method}&${urlEncode(method.url)}&" +
+                "${urlEncode(baseValue.toString())}"
+        val keyText = "${urlEncode(consumerSecret!!)}&" +
+                (if (accessTokenSecret == null) "" else urlEncode(accessTokenSecret!!))
         val signingKey = SecretKeySpec(keyText.toByteArray(), "HmacSHA1")
         val mac = Mac.getInstance(signingKey.algorithm)
         mac.init(signingKey)
         val binary = mac.doFinal(baseString.toByteArray())
-        val signature = Utils.base64Encode(binary)
+        val signature = base64Encode(binary)
         return signature
     }
 }
