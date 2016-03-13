@@ -11,7 +11,7 @@ import java.net.URLEncoder
 
 // http://javatechnology.net/java/url-encode/
 // not encode '-'
-fun String.urlEncode(): String {
+internal fun String.urlEncode(): String {
     return try {
         val encoded = URLEncoder.encode(this, "UTF-8")
         val sb = StringBuilder(encoded.length)
@@ -28,7 +28,7 @@ fun String.urlEncode(): String {
     }
 }
 
-fun LongArray.toStringParam(): String {
+internal fun LongArray.toStringParam(): String {
     val sb = StringBuilder()
     for (l in this) {
         if (sb.length > 0) {
@@ -39,11 +39,11 @@ fun LongArray.toStringParam(): String {
     return sb.toString()
 }
 
-fun String.toLongArrayFromParam(): LongArray {
+internal fun String.toLongArrayFromParam(): LongArray {
     return split(",").map { x -> x.toLong() }.toLongArray()
 }
 
-fun Array<String>.toStringParam(): String {
+internal fun Array<String>.toStringParam(): String {
     val sb = StringBuilder()
     for (s in this) {
         if (sb.length > 0) {
@@ -54,11 +54,11 @@ fun Array<String>.toStringParam(): String {
     return sb.toString()
 }
 
-fun String.toArrayFromParam(): Array<String> {
+internal fun String.toArrayFromParam(): Array<String> {
     return split(",").toTypedArray()
 }
 
-fun String.replaceLine(): String {
+internal fun String.replaceLine(): String {
     val sb = StringBuilder()
     for (c in toCharArray()) {
         if (c != '\n') {
@@ -68,14 +68,14 @@ fun String.replaceLine(): String {
     return sb.toString()
 }
 
-fun base64Encode(bs: ByteArray): String {
+internal fun base64Encode(bs: ByteArray): String {
     // https://android.googlesource.com/platform/frameworks/base/+/refs/heads/master/core/java/android/util/Base64.java
     // Line 674
     return String(Base64.encode(bs, Base64.DEFAULT)).replaceLine()
 }
 
 @Throws(Twitter4HKException::class)
-fun readByte(file: File, size: Int, off: Long): ByteArray {
+internal fun readByte(file: File, size: Int, off: Long): ByteArray {
     val input = FileInputStream(file)
     val result = ByteArray(size)
     try {
@@ -90,7 +90,7 @@ fun readByte(file: File, size: Int, off: Long): ByteArray {
 }
 
 @Throws(Twitter4HKException::class)
-fun <T> tryAndThrow(f: () -> T): T {
+internal fun <T> tryAndThrow(f: () -> T): T {
     return try {
         f()
     } catch(e: Exception) {
@@ -100,13 +100,13 @@ fun <T> tryAndThrow(f: () -> T): T {
 }
 
 @Throws(IncorrectException::class)
-fun requirePermission(oauthType: Int, vararg require: Int) {
+internal fun requirePermission(oauthType: Int, vararg require: Int) {
     if (require.map { Pair(oauthType, it) }.all { it.first and it.second == 0 }) {
         throw IncorrectException("do not allow OauthType")
     }
 }
 
-fun includePermission(oauthType: Int, vararg permission: Int): Boolean {
+internal fun includePermission(oauthType: Int, vararg permission: Int): Boolean {
     return permission.map { Pair(oauthType, it) }.any { it.first and it.second != 0 }
 }
 
