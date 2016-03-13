@@ -10,9 +10,9 @@ import java.net.URLEncoder
 
 // http://javatechnology.net/java/url-encode/
 // not encode '-'
-fun urlEncode(string: String): String {
-    try {
-        val encoded = URLEncoder.encode(string, "UTF-8")
+fun String.urlEncode(): String {
+    return try {
+        val encoded = URLEncoder.encode(this, "UTF-8")
         val sb = StringBuilder(encoded.length)
         for (c in encoded.toCharArray()) {
             when (c) {
@@ -21,15 +21,15 @@ fun urlEncode(string: String): String {
                 else -> sb.append(c)
             }
         }
-        return sb.toString()
+        sb.toString()
     } catch (e: UnsupportedEncodingException) {
-        return string
+        this
     }
 }
 
-fun toString(ls: LongArray): String {
+fun LongArray.toStringParam(): String {
     val sb = StringBuilder()
-    for (l in ls) {
+    for (l in this) {
         if (sb.length > 0) {
             sb.append(',')
         }
@@ -38,13 +38,13 @@ fun toString(ls: LongArray): String {
     return sb.toString()
 }
 
-fun toLongArray(s: String): LongArray {
-    return s.split(",").map { x -> x.toLong() }.toLongArray()
+fun String.toLongArrayFromParam(): LongArray {
+    return split(",").map { x -> x.toLong() }.toLongArray()
 }
 
-fun toString(ss: Array<String>): String {
+fun Array<String>.toStringParam(): String {
     val sb = StringBuilder()
-    for (s in ss) {
+    for (s in this) {
         if (sb.length > 0) {
             sb.append(',')
         }
@@ -53,13 +53,13 @@ fun toString(ss: Array<String>): String {
     return sb.toString()
 }
 
-fun toArray(s: String): Array<String> {
-    return s.split(",").toTypedArray()
+fun String.toArrayFromParam(): Array<String> {
+    return split(",").toTypedArray()
 }
 
-fun replaceLine(s: String): String {
+fun String.replaceLine(): String {
     val sb = StringBuilder()
-    for (c in s.toCharArray()) {
+    for (c in toCharArray()) {
         if (c != '\n') {
             sb.append(c)
         }
@@ -70,7 +70,7 @@ fun replaceLine(s: String): String {
 fun base64Encode(bs: ByteArray): String {
     // https://android.googlesource.com/platform/frameworks/base/+/refs/heads/master/core/java/android/util/Base64.java
     // Line 674
-    return replaceLine(String(Base64.encode(bs, Base64.DEFAULT)))
+    return String(Base64.encode(bs, Base64.DEFAULT)).replaceLine()
 }
 
 @Throws(Twitter4HKException::class)

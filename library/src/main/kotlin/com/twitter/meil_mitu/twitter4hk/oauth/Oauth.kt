@@ -142,10 +142,10 @@ open class Oauth : AbsOauth {
                 baseValue.append(',')
                 baseValue.append(' ')
             }
-            baseValue.append(urlEncode(e.key))
+            baseValue.append(e.key.urlEncode())
             baseValue.append('=')
             baseValue.append('"')
-            baseValue.append(urlEncode(e.value))
+            baseValue.append(e.value.urlEncode())
             baseValue.append('"')
         }
         val baseString = baseValue.toString()
@@ -181,14 +181,12 @@ open class Oauth : AbsOauth {
             if (baseValue.length > 0) {
                 baseValue.append('&')
             }
-            baseValue.append(urlEncode(e.key))
+            baseValue.append(e.key.urlEncode())
             baseValue.append('=')
-            baseValue.append(urlEncode(e.value))
+            baseValue.append(e.value.urlEncode())
         }
-        var baseString = "${method.method}&${urlEncode(method.url)}&" +
-                "${urlEncode(baseValue.toString())}"
-        val keyText = "${urlEncode(consumerSecret!!)}&" +
-                (if (accessTokenSecret == null) "" else urlEncode(accessTokenSecret!!))
+        var baseString = "${method.method}&${method.url.urlEncode()}&${baseValue.toString().urlEncode()}"
+        val keyText = "${consumerSecret!!.urlEncode()}&" + (if (accessTokenSecret == null) "" else accessTokenSecret!!.urlEncode())
         val signingKey = SecretKeySpec(keyText.toByteArray(), "HmacSHA1")
         val mac = Mac.getInstance(signingKey.algorithm)
         mac.init(signingKey)

@@ -90,8 +90,8 @@ class Oauth2 : AbsOauth {
     }
 
     protected fun createAuthorization(): String {
-        val encodedConsumerKey = urlEncode(consumerKey!!)
-        val encodedConsumerSecret = urlEncode(consumerSecret!!)
+        val encodedConsumerKey = consumerKey!!.urlEncode()
+        val encodedConsumerSecret = consumerSecret!!.urlEncode()
         val bearer = "$encodedConsumerKey:$encodedConsumerSecret"
         return base64Encode(bearer.toByteArray())
     }

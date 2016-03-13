@@ -1,9 +1,9 @@
 package com.twitter.meil_mitu.twitter4hk
 
 import com.twitter.meil_mitu.twitter4hk.exception.Twitter4HKException
-import com.twitter.meil_mitu.twitter4hk.util.toArray
-import com.twitter.meil_mitu.twitter4hk.util.toLongArray
-import com.twitter.meil_mitu.twitter4hk.util.toString
+import com.twitter.meil_mitu.twitter4hk.util.toArrayFromParam
+import com.twitter.meil_mitu.twitter4hk.util.toLongArrayFromParam
+import com.twitter.meil_mitu.twitter4hk.util.toStringParam
 import java.util.*
 
 abstract class AbsMethod<T> {
@@ -20,28 +20,22 @@ abstract class AbsMethod<T> {
             = Param<AbsMethod<T>, String, String>(paramMap, key, { x -> x }, { x -> x })
 
     protected fun stringArrayParam(key: String)
-            = Param<AbsMethod<T>, Array<String>, String>(paramMap, key,
-            { x -> toString(x) }, { x -> toArray(x) })
+            = Param<AbsMethod<T>, Array<String>, String>(paramMap, key, { x -> x.toStringParam() }, { x -> x.toArrayFromParam() })
 
     protected fun booleanParam(key: String)
-            = Param<AbsMethod<T>, Boolean, String>(paramMap, key,
-            { x -> x.toString() }, { x -> x.toBoolean() })
+            = Param<AbsMethod<T>, Boolean, String>(paramMap, key, { x -> x.toString() }, { x -> x.toBoolean() })
 
     protected fun intParam(key: String)
-            = Param<AbsMethod<T>, Int, String>(paramMap, key,
-            { x -> x.toString() }, { x -> x.toInt() })
+            = Param<AbsMethod<T>, Int, String>(paramMap, key, { x -> x.toString() }, { x -> x.toInt() })
 
     protected fun longParam(key: String)
-            = Param<AbsMethod<T>, Long, String>(paramMap, key,
-            { x -> x.toString() }, { x -> x.toLong() })
+            = Param<AbsMethod<T>, Long, String>(paramMap, key, { x -> x.toString() }, { x -> x.toLong() })
 
     protected fun longArrayParam(key: String)
-            = Param<AbsMethod<T>, LongArray, String>(paramMap, key,
-            { x -> toString(x) }, { x -> toLongArray(x) })
+            = Param<AbsMethod<T>, LongArray, String>(paramMap, key, { x -> x.toStringParam() }, { x -> x.toLongArrayFromParam() })
 
     protected fun floatParam(key: String)
-            = Param<AbsMethod<T>, Float, String>(paramMap, key,
-            { x -> x.toString() }, { x -> x.toFloat() })
+            = Param<AbsMethod<T>, Float, String>(paramMap, key, { x -> x.toString() }, { x -> x.toFloat() })
 
     @Throws(Twitter4HKException::class)
     abstract fun call(): T
