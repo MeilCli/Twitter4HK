@@ -27,11 +27,7 @@ abstract class AbsOauth protected constructor(
         private set
 
     init {
-        var _config = config
-        if (_config == null) {
-            _config = Twitter4HKConfig()
-        }
-        this.config = _config
+        this.config = config ?: Twitter4HKConfig()
         if (isRequireConsumer == true && (consumerKey == null || consumerSecret == null)) {
             throw NullPointerException("ConsumerKey or ConsumerSecret is null")
         }
@@ -52,19 +48,17 @@ abstract class AbsOauth protected constructor(
     }
 
     protected open fun okhttpSetting(config: Twitter4HKConfig) {
-        if (http == null) {
-            http = OkHttpClient()
-            val list = ArrayList<Protocol>()
-            list.add(Protocol.HTTP_1_1)
-            if (config.isUseHttp2) {
-                list.add(Protocol.HTTP_2)
-            }
-            if (config.isUseSpdy) {
-                list.add(Protocol.SPDY_3)
-            }
-            http!!.setProtocols(list)
-            http!!.setConnectionPool(ConnectionPool(5, 400))
+        http = http ?: OkHttpClient()
+        val list = ArrayList<Protocol>()
+        list.add(Protocol.HTTP_1_1)
+        if (config.isUseHttp2) {
+            list.add(Protocol.HTTP_2)
         }
+        if (config.isUseSpdy) {
+            list.add(Protocol.SPDY_3)
+        }
+        http!!.protocols = list
+        http!!.connectionPool = ConnectionPool(5, 400)
         http!!.setConnectTimeout(config.connectTimeoutSecond, TimeUnit.SECONDS)
         http!!.setReadTimeout(config.readTimeoutSecond, TimeUnit.SECONDS)
     }

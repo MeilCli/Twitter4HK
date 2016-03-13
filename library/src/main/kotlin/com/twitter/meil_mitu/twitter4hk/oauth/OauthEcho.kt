@@ -9,8 +9,8 @@ import com.twitter.meil_mitu.twitter4hk.Twitter4HKConfig
 import com.twitter.meil_mitu.twitter4hk.api.account.VerifyCredentials
 import com.twitter.meil_mitu.twitter4hk.converter.TwitterConverter
 import com.twitter.meil_mitu.twitter4hk.data.User
-import com.twitter.meil_mitu.twitter4hk.exception.IncorrectException
 import com.twitter.meil_mitu.twitter4hk.exception.Twitter4HKException
+import com.twitter.meil_mitu.twitter4hk.util.requirePermission
 import com.twitter.meil_mitu.twitter4hk.util.tryAndThrow
 import java.net.CookieManager
 
@@ -44,34 +44,24 @@ class OauthEcho : Oauth {
     }
 
     private fun init(check: IOauthEchoCheck?) {
-        if (verify == null) {
-            verify = VerifyCredentials(this, TwitterConverter.getDefaultConverter())
-        }
-        this.check = check
-        if (this.check == null) {
-            this.check = defaultCheck
-        }
+        verify = verify ?: VerifyCredentials(this, TwitterConverter.getDefaultConverter())
+        this.check = check ?: defaultCheck
     }
 
     override fun okhttpSetting(config: Twitter4HKConfig) {
         super.okhttpSetting(config)
         //for aclog
-        if (cookie == null) {
-            cookie = CookieManager()
-        }
+        cookie = cookie ?: CookieManager()
         http!!.setCookieHandler(cookie)
     }
 
     @Throws(Twitter4HKException::class)
     override fun<T> get(param: AbsGet<T>): Response {
-        if ((param.allowOauthType and OauthType.oauthEcho) == 0) {
-            throw IncorrectException("do not allow OauthType")
-        }
+        requirePermission(param.allowOauthType, OauthType.oauthEcho)
         val builder = Request.Builder()
         builder.url(toUrl(param))
         builder.header("User-Agent", config.userAgent)
-        if (param.isAuthorization && consumerKey != null &&
-                consumerSecret != null && accessToken != null && accessTokenSecret != null) {
+        if (param.isAuthorization && consumerKey != null && consumerSecret != null && accessToken != null && accessTokenSecret != null) {
             tryAndThrow {
                 builder.addHeader("X-Auth-Service-Provider", verify!!.url)
                 builder.addHeader("X-Verify-Credentials-Authorization", "OAuth ${createAuthorization(verify!!, false)}")
@@ -85,14 +75,11 @@ class OauthEcho : Oauth {
 
     @Throws(Twitter4HKException::class)
     override fun<T> post(param: AbsPost<T>): Response {
-        if ((param.allowOauthType and OauthType.oauthEcho) == 0) {
-            throw IncorrectException("do not allow OauthType")
-        }
+        requirePermission(param.allowOauthType, OauthType.oauthEcho)
         val builder = Request.Builder()
         builder.url(param.url)
         builder.header("User-Agent", config.userAgent)
-        if (param.isAuthorization && consumerKey != null &&
-                consumerSecret != null && accessToken != null && accessTokenSecret != null) {
+        if (param.isAuthorization && consumerKey != null && consumerSecret != null && accessToken != null && accessTokenSecret != null) {
             tryAndThrow {
                 builder.addHeader("X-Auth-Service-Provider", verify!!.url)
                 builder.addHeader("X-Verify-Credentials-Authorization", "OAuth ${createAuthorization(verify!!, false)}")
@@ -102,7 +89,6 @@ class OauthEcho : Oauth {
         return tryAndThrow { call(builder.build()) }.apply {
             check!!.checkError(this)
         }
-
     }
 
     companion object {

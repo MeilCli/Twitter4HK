@@ -5,11 +5,8 @@ import com.squareup.okhttp.Request
 import com.squareup.okhttp.RequestBody
 import com.squareup.okhttp.Response
 import com.twitter.meil_mitu.twitter4hk.*
-import com.twitter.meil_mitu.twitter4hk.exception.IncorrectException
 import com.twitter.meil_mitu.twitter4hk.exception.Twitter4HKException
-import com.twitter.meil_mitu.twitter4hk.util.base64Encode
-import com.twitter.meil_mitu.twitter4hk.util.tryAndThrow
-import com.twitter.meil_mitu.twitter4hk.util.urlEncode
+import com.twitter.meil_mitu.twitter4hk.util.*
 import java.util.*
 import javax.crypto.Mac
 import javax.crypto.spec.SecretKeySpec
@@ -57,10 +54,7 @@ open class Oauth : AbsOauth {
 
     @Throws(Twitter4HKException::class)
     override fun <T> get(param: AbsGet<T>): Response {
-        if ((param.allowOauthType and OauthType.oauth1) == 0 &&
-                (param.allowOauthType and OauthType.oauth1RequestToken) == 0) {
-            throw IncorrectException("do not allow OauthType")
-        }
+        requirePermission(param.allowOauthType, OauthType.oauth1, OauthType.oauth1RequestToken)
         val builder = Request.Builder()
         builder.url(toUrl(param))
         builder.header("User-Agent", config.userAgent)
@@ -71,16 +65,13 @@ open class Oauth : AbsOauth {
         }
         builder.get()
         return tryAndThrow { call(builder.build()) }.apply {
-                checkError(this)
-            }
+            checkError(this)
+        }
     }
 
     @Throws(Twitter4HKException::class)
     override fun <T> post(param: AbsPost<T>): Response {
-        if ((param.allowOauthType and OauthType.oauth1) == 0 &&
-                (param.allowOauthType and OauthType.oauth1RequestToken) == 0) {
-            throw IncorrectException("do not allow OauthType")
-        }
+        requirePermission(param.allowOauthType, OauthType.oauth1, OauthType.oauth1RequestToken)
         val builder = Request.Builder()
         builder.url(param.url)
         builder.header("User-Agent", config.userAgent)
@@ -89,14 +80,14 @@ open class Oauth : AbsOauth {
                 builder.addHeader("Authorization", "OAuth ${createAuthorization(param, param.fileSize > 0)}")
             }
         }
-        if ((param.allowOauthType and OauthType.oauth1RequestToken) == 0) {
+        if (includePermission(param.allowOauthType, OauthType.oauth1)) {
             builder.post(toBody(param))
         } else {
             builder.post(RequestBody.create(AbsOauth.mediaText, ""))
         }
         return tryAndThrow { call(builder.build()) }.apply {
-                checkError(this)
-            }
+            checkError(this)
+        }
     }
 
     protected fun makeOauthNonce(): String {
@@ -111,12 +102,7 @@ open class Oauth : AbsOauth {
     protected fun <T> createAuthorization(method: AbsMethod<T>, isMultiPost: Boolean): String {
         val nonce = makeOauthNonce()
         val time = makeTimestamp()
-        val callback: String?
-        if ((method.allowOauthType and OauthType.oauth1RequestToken) == 0) {
-            callback = null
-        } else {
-            callback = method.paramMap["oauth_callback"]
-        }
+        val callback = if (includePermission(method.allowOauthType, OauthType.oauth1RequestToken)) method.paramMap["oauth_callback"] else null
         val params = TreeMap<String, String>()
         params.put("oauth_nonce", nonce)
         if (callback != null) {
@@ -131,8 +117,7 @@ open class Oauth : AbsOauth {
         params.put("oauth_version", "1.0")
         params.put("oauth_signature", createSignature(
                 method,
-                isMultiPost == false ||
-                        (method.allowOauthType and OauthType.oauth1RequestToken) == 0,
+                isMultiPost == false && includePermission(method.allowOauthType, OauthType.oauth1),
                 callback,
                 nonce,
                 time))
@@ -186,7 +171,7 @@ open class Oauth : AbsOauth {
             baseValue.append(e.value.urlEncode())
         }
         var baseString = "${method.method}&${method.url.urlEncode()}&${baseValue.toString().urlEncode()}"
-        val keyText = "${consumerSecret!!.urlEncode()}&" + (if (accessTokenSecret == null) "" else accessTokenSecret!!.urlEncode())
+        val keyText = "${consumerSecret!!.urlEncode()}&" + (accessTokenSecret?.urlEncode() ?: "")
         val signingKey = SecretKeySpec(keyText.toByteArray(), "HmacSHA1")
         val mac = Mac.getInstance(signingKey.algorithm)
         mac.init(signingKey)

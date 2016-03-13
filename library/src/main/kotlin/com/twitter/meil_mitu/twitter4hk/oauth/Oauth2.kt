@@ -7,11 +7,8 @@ import com.twitter.meil_mitu.twitter4hk.*
 import com.twitter.meil_mitu.twitter4hk.api.oauth2.InvalidateToken
 import com.twitter.meil_mitu.twitter4hk.api.oauth2.Token
 import com.twitter.meil_mitu.twitter4hk.converter.TwitterConverter
-import com.twitter.meil_mitu.twitter4hk.exception.IncorrectException
 import com.twitter.meil_mitu.twitter4hk.exception.Twitter4HKException
-import com.twitter.meil_mitu.twitter4hk.util.base64Encode
-import com.twitter.meil_mitu.twitter4hk.util.tryAndThrow
-import com.twitter.meil_mitu.twitter4hk.util.urlEncode
+import com.twitter.meil_mitu.twitter4hk.util.*
 
 class Oauth2 : AbsOauth {
 
@@ -36,10 +33,7 @@ class Oauth2 : AbsOauth {
 
     @Throws(Twitter4HKException::class)
     override fun<T> get(param: AbsGet<T>): Response {
-        if ((param.allowOauthType and OauthType.oauth2) == 0 &&
-                (param.allowOauthType and OauthType.oauth2Basic) == 0) {
-            throw IncorrectException("do not allow OauthType")
-        }
+        requirePermission(param.allowOauthType, OauthType.oauth2, OauthType.oauth2Basic)
         if (accessToken == null || tokenType == null) {
             Token(this, TwitterConverter.getDefaultConverter()).call()// token is post
         }
@@ -47,7 +41,7 @@ class Oauth2 : AbsOauth {
         builder.url(toUrl(param))
         builder.header("User-Agent", config.userAgent)
         if (param.isAuthorization) {
-            if ((param.allowOauthType and OauthType.oauth2Basic) == 0) {
+            if (includePermission(param.allowOauthType, OauthType.oauth2)) {
                 builder.addHeader("Authorization", "$tokenType $accessToken")
             } else {
                 builder.addHeader("Authorization", "Basic ${createAuthorization()}")
@@ -69,15 +63,12 @@ class Oauth2 : AbsOauth {
 
     @Throws(Twitter4HKException::class)
     override fun<T> post(param: AbsPost<T>): Response {
-        if ((param.allowOauthType and OauthType.oauth2) == 0 &&
-                (param.allowOauthType and OauthType.oauth2Basic) == 0) {
-            throw IncorrectException("do not allow OauthType")
-        }
+        requirePermission(param.allowOauthType, OauthType.oauth2, OauthType.oauth2Basic)
         val builder = Request.Builder()
         builder.url(param.url)
         builder.header("User-Agent", config.userAgent)
         if (param.isAuthorization) {
-            if ((param.allowOauthType and OauthType.oauth2Basic) == 0) {
+            if (includePermission(param.allowOauthType, OauthType.oauth2)) {
                 builder.addHeader("Authorization", "$tokenType $accessToken")
             } else {
                 builder.addHeader("Authorization", "Basic ${createAuthorization()}")

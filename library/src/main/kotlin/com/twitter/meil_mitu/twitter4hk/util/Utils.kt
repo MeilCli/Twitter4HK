@@ -1,6 +1,7 @@
 package com.twitter.meil_mitu.twitter4hk.util
 
 import android.util.Base64
+import com.twitter.meil_mitu.twitter4hk.exception.IncorrectException
 import com.twitter.meil_mitu.twitter4hk.exception.Twitter4HKException
 import java.io.File
 import java.io.FileInputStream
@@ -96,5 +97,16 @@ fun <T> tryAndThrow(f: () -> T): T {
         e.printStackTrace()
         throw Twitter4HKException(e.message)
     }
+}
+
+@Throws(IncorrectException::class)
+fun requirePermission(oauthType: Int, vararg require: Int) {
+    if (require.map { Pair(oauthType, it) }.all { it.first and it.second == 0 }) {
+        throw IncorrectException("do not allow OauthType")
+    }
+}
+
+fun includePermission(oauthType: Int, vararg permission: Int): Boolean {
+    return permission.map { Pair(oauthType, it) }.any { it.first and it.second != 0 }
 }
 
