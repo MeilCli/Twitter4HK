@@ -176,7 +176,7 @@ open class Oauth : AbsOauth {
         val mac = Mac.getInstance(signingKey.algorithm)
         mac.init(signingKey)
         val binary = mac.doFinal(baseString.toByteArray())
-        val signature = base64Encode(binary)
+        val signature = binary.base64Encode()
         return signature
     }
 }

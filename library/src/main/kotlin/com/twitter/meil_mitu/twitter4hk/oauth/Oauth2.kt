@@ -84,6 +84,6 @@ class Oauth2 : AbsOauth {
         val encodedConsumerKey = consumerKey!!.urlEncode()
         val encodedConsumerSecret = consumerSecret!!.urlEncode()
         val bearer = "$encodedConsumerKey:$encodedConsumerSecret"
-        return base64Encode(bearer.toByteArray())
+        return bearer.toByteArray().base64Encode()
     }
 }

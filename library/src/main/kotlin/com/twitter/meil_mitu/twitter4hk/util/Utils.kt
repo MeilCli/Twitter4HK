@@ -68,10 +68,10 @@ internal fun String.replaceLine(): String {
     return sb.toString()
 }
 
-internal fun base64Encode(bs: ByteArray): String {
+internal fun ByteArray.base64Encode(): String {
     // https://android.googlesource.com/platform/frameworks/base/+/refs/heads/master/core/java/android/util/Base64.java
     // Line 674
-    return String(Base64.encode(bs, Base64.DEFAULT)).replaceLine()
+    return String(Base64.encode(this, Base64.DEFAULT)).replaceLine()
 }
 
 @Throws(Twitter4HKException::class)
