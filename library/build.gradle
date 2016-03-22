@@ -38,10 +38,15 @@ uploadArchives {
     }
 }
 
+repositories {
+    mavenCentral()
+}
+
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     testCompile 'junit:junit:4.12'
     compile 'com.squareup.okhttp:okhttp:2.7.2'
+    compile 'net.meilcli:hkjson:1.1.2'
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 }
 buildscript {
@@ -52,7 +57,4 @@ buildscript {
     dependencies {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
     }
-}
-repositories {
-    mavenCentral()
 }
