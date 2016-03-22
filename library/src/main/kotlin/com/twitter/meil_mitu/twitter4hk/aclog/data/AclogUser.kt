@@ -1,20 +1,19 @@
 package com.twitter.meil_mitu.twitter4hk.aclog.data
 
 
-import com.twitter.meil_mitu.twitter4hk.exception.Twitter4HKException
-import com.twitter.meil_mitu.twitter4hk.util.JsonUtils.getInt
-import com.twitter.meil_mitu.twitter4hk.util.JsonUtils.getLong
+import net.meilcli.hkjson.HKJson
+import net.meilcli.hkjson.IJson
+import net.meilcli.hkjson.objects.IntJson
+import net.meilcli.hkjson.objects.LongJson
 import org.json.JSONObject
 
-class AclogUser {
+class AclogUser(json: JSONObject? = null) : IJson by HKJson(json) {
 
-    val count: Int
-    val id: Long
+    val count by IntJson.json("count")
+    val id by LongJson.json("id")
 
-    @Throws(Twitter4HKException::class)
-    constructor(obj: JSONObject) {
-        count = getInt(obj, "count")
-        id = getLong(obj, "id")
+    init {
+        clearJsonCache()
     }
 
     override fun toString(): String {

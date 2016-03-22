@@ -1,22 +1,20 @@
 package com.twitter.meil_mitu.twitter4hk.aclog.data
 
-import com.twitter.meil_mitu.twitter4hk.exception.Twitter4HKException
-import com.twitter.meil_mitu.twitter4hk.util.JsonUtils.getBoolean
-import com.twitter.meil_mitu.twitter4hk.util.JsonUtils.getInt
-import com.twitter.meil_mitu.twitter4hk.util.JsonUtils.getLong
+import net.meilcli.hkjson.HKJson
+import net.meilcli.hkjson.IJson
+import net.meilcli.hkjson.objects.BooleanJson
+import net.meilcli.hkjson.objects.IntJson
+import net.meilcli.hkjson.objects.LongJson
 import org.json.JSONObject
 
-class AclogStats {
+class AclogStats(json: JSONObject? = null) : IJson by HKJson(json) {
 
-    val id: Long//UserId
-    val reactionsCount: Int
-    val isRegistered: Boolean
+    val id by LongJson.json("id")//UserId
+    val reactionsCount by IntJson.json("reactions_count")
+    val isRegistered by BooleanJson.json("registered")
 
-    @Throws(Twitter4HKException::class)
-    constructor(obj: JSONObject) {
-        id = getLong(obj, "id")
-        reactionsCount = getInt(obj, "reactions_count")
-        isRegistered = getBoolean(obj, "registered")
+    init {
+        clearJsonCache()
     }
 
     override fun toString(): String {

@@ -1,48 +1,24 @@
 package com.twitter.meil_mitu.twitter4hk.aclog.data
 
 
-import com.twitter.meil_mitu.twitter4hk.exception.Twitter4HKException
-import com.twitter.meil_mitu.twitter4hk.util.JsonUtils.getInt
-import com.twitter.meil_mitu.twitter4hk.util.JsonUtils.getJSONArray
-import com.twitter.meil_mitu.twitter4hk.util.JsonUtils.getLong
+import net.meilcli.hkjson.HKJson
+import net.meilcli.hkjson.IJson
+import net.meilcli.hkjson.objects.IntJson
+import net.meilcli.hkjson.objects.LongJson
 import org.json.JSONObject
 import java.util.*
 
-class AclogStatus {
+class AclogStatus(json: JSONObject? = null) : IJson by HKJson(json) {
 
-    val id: Long
-    val userId: Long
-    val favoritesCount: Int
-    val retweetsCount: Int
-    val favoriters: LongArray
-    val retweeters: LongArray
+    val id by LongJson.json("id")
+    val userId by LongJson.json("user_id")
+    val favoritesCount by IntJson.json("favorites_count")
+    val retweetsCount by IntJson.json("retweets_count")
+    val favoriters by LongJson.jsonOptionalArray("favoriters")
+    val retweeters by LongJson.jsonOptionalArray("retweeters")
 
-    @Throws(Twitter4HKException::class)
-    constructor(obj: JSONObject) {
-        id = getLong(obj, "id")
-        userId = getLong(obj, "user_id")
-        favoritesCount = getInt(obj, "favorites_count")
-        retweetsCount = getInt(obj, "retweets_count")
-        if (obj.isNull("favoriters")) {
-            favoriters = LongArray(0)
-        } else {
-            val ar = getJSONArray(obj, "favoriters")
-            val size = ar.length()
-            favoriters = LongArray(size)
-            for (i in 0..size - 1) {
-                favoriters[i] = getLong(ar, i)
-            }
-        }
-        if (obj.isNull("retweeters")) {
-            retweeters = LongArray(0)
-        } else {
-            val ar = getJSONArray(obj, "retweeters")
-            val size = ar.length()
-            retweeters = LongArray(size)
-            for (i in 0..size - 1) {
-                retweeters[i] = getLong(ar, i)
-            }
-        }
+    init {
+        clearJsonCache()
     }
 
     override fun toString(): String {
